@@ -1,6 +1,5 @@
 const { role } = require('../models'); 
 
-
 const roleController = {}; 
 
 roleController.createRole = async (req, res) => {
@@ -33,7 +32,7 @@ roleController.updateRole = async (req,res) => {
     try {
         
 
-        
+
         const results = await role.update(
             {
                 role: req.body.role
