@@ -1,0 +1,29 @@
+const { role } = require('../models'); 
+
+
+const roleController = {}; 
+
+roleController.createRole = async (req, res) => {
+
+    try {
+console.log(req.body.role);
+        const results = await role.create(
+            {
+                role: req.body.role
+            }
+        ); 
+
+        return res.json(results)
+
+    } catch (error){
+
+        return res.status(500).json({
+            success: true,
+            message: "carnt create role",
+            error: error.message
+        }); 
+
+    }
+}
+
+module.exports = roleController
