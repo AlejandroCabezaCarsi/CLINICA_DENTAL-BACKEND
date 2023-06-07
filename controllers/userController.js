@@ -42,4 +42,75 @@ userController.createUser = async (req,res) => {
     }
 }
 
+
+userController.loginUser = async (req,res) => {
+
+    try {
+        
+        const  email = req.body.email;
+        const password = req.body.password; 
+
+        
+
+        const buscaUsuario = await user.findOne(
+            {
+                where: {
+                    email: email
+                }
+            }
+        )
+        
+        if (!buscaUsuario){
+            return res.json(
+                {
+                    success: true,
+                    message: "Wrong credentials"
+                }
+            )
+        }
+        
+        // const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
+        
+        // if(!validPassword){
+        //     return res.json(
+        //         {
+        //             success: true,
+        //             message: "Wrong credentials2"
+        //         }
+        //     )
+        // }
+        
+        const token = jwt.sign(
+            {
+                userId: user.id,
+                roleId: user.roleId,
+                email: user.email
+            },
+            'zumitoDePiña',
+            {
+                expiresIn: '8h'
+            }
+        ); 
+
+        return res.json(
+            {
+                success: true,
+                message: "User Logged",
+                token: token
+            }
+        )
+
+
+    } catch (error) {
+        
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Wrong credentials ",
+            error: error.message
+
+        });
+    }
+}
+
 module.exports = userController
