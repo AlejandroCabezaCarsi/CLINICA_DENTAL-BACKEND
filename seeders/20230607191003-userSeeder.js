@@ -12,13 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
     return queryInterface.bulkInsert('users', [
       {
       id:1,
       name:"Alex",
       lastname:"Cabeza",
       email:"alex@alex.com",
+      password:"1234",
       phonenumber:111111111,
       dni:"123456789A",
       roleId:1,
@@ -30,6 +30,7 @@ module.exports = {
       name:"Andrea",
       lastname:"Sanchez",
       email:"andrea@andrea.com",
+      password:"1234",
       phonenumber:222222222,
       dni:"987654321B",
       roleId:2,
@@ -40,6 +41,7 @@ module.exports = {
       name:"Pepe",
       lastname:"Garcia",
       email:"pepe@pepe.com",
+      password:"1234",
       phonenumber:333333333,
       dni:"67891234C",
       roleId:3,
@@ -55,7 +57,5 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-
-    
   }
 };
