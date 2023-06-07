@@ -32,6 +32,8 @@ roleController.updateRole = async (req,res) => {
 
     try {
         
+
+        
         const results = await role.update(
             {
                 role: req.body.role
