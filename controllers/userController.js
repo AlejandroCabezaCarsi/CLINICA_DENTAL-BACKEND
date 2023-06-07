@@ -139,7 +139,50 @@ userController.deleteUser = async (req,res) => {
             error: error.message
         });
     }
+}
 
+userController.updateUser = async (req,res) => {
+
+    try {
+
+        const { name,lastname,email,password,phonenumber} = req.body 
+        const dni = req.params.dni
+        if (password.length < 4) {
+            return res.send('Password must be longer than 4 characters');
+        }
+
+        const newPassword = bcrypt.hashSync(req.body.password, 8);
+
+        const results = await user.update({
+            name: name,
+            lastname: lastname,
+            email: email,
+            password: newPassword,
+            phonenumber: phonenumber,
+        },
+        {
+            where: {
+                dni: dni
+            }
+        })
+
+        return res.json(
+            {
+                success: "true",
+                message: "User updated",
+                
+            
+            }
+        )
+        
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Update failed",
+            error: error.message
+        });
+    }
 
 }
 
