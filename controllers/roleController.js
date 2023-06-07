@@ -5,7 +5,6 @@ const roleController = {};
 roleController.createRole = async (req, res) => {
 
     try {
-console.log(req.body.role);
 
         const results = await role.create(
             {

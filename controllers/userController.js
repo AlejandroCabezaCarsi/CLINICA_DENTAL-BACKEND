@@ -2,7 +2,8 @@ const {user} = require('../models');
 
 const bcrypt = require('bcrypt')
 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { where } = require('sequelize');
 
 const userController = {}; 
 
@@ -106,11 +107,40 @@ userController.loginUser = async (req,res) => {
         return res.status(500).json({ 
 
             success: true,
-            message: "Wrong credentials ",
+            message: "Wrong credentials",
             error: error.message
 
         });
     }
+}
+
+userController.deleteUser = async (req,res) => {
+
+    try {
+        const results = await user.destroy({
+            where: {
+                name: req.body.name,
+                password: req.body.password,
+                dni: req.body.dni
+            }
+        })
+        return res.json(
+            {
+                success:true,
+                message: "User deleted correctly",
+                results
+            }
+        )
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "can't cancel user",
+            error: error.message
+        });
+    }
+
+
 }
 
 module.exports = userController
