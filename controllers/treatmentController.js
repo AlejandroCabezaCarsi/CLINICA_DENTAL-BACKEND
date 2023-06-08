@@ -99,7 +99,32 @@ treatmentController.updateTreatment = async (req,res) => {
             error: error.message
         });
     }
+}
 
+treatmentController.getTreatment = async (req, res) => {
+    try {
+        
+        const buscaTratamientos = await treatment.findOne({
+            where: {
+                id: req.body.id
+            }, 
+            attributes: ['name','price','duration']
+        }); 
+
+        return res.json({
+            success: "true",
+            message: "Here you have the treatment",
+            buscaTratamientos: buscaTratamientos
+        })
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get all treatments failed",
+            error: error.message
+        });
+    }
 }
 
 module.exports = treatmentController
