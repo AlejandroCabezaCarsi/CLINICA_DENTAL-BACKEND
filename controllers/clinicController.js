@@ -63,5 +63,45 @@ clinicController.deleteClinic = async (req,res) => {
     }
 }
 
+clinicController.updateClinic = async (req,res) => {
+
+    try {
+
+        const { address, number, email, city, id} = req.body 
+        
+
+        const clinicUpdate = await clinic.update(
+        {
+            address: address, 
+            number: number,
+            email: email, 
+            city: city
+        },
+        {
+            where: {
+                id: id
+            }
+        })
+
+        return res.json(
+            {
+                success: "true",
+                message: "Clinic updated",
+                clinicUpdate: clinicUpdate
+                
+            
+            }
+        )
+        
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Update failed",
+            error: error.message
+        });
+    }
+}
+
 
 module.exports = clinicController
