@@ -37,4 +37,29 @@ treatmentController.createTreatment = async (req,res) => {
 
 }
 
+treatmentController.deleteTreatment = async (req,res) => {
+
+    try {
+        const results = await treatment.destroy({
+            where: {
+                name: req.body.name,
+            }
+        })
+        return res.json(
+            {
+                success:true,
+                message: "Treatment deleted correctly",
+                results
+            }
+        )
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "can't cancel treatment",
+            error: error.message
+        });
+    }
+}
+
 module.exports = treatmentController
