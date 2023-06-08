@@ -162,7 +162,7 @@ userController.updateUser = async (req,res) => {
         },
         {
             where: {
-                dni: dni
+                id: req.body.userId 
             }
         })
 
