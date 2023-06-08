@@ -70,16 +70,16 @@ userController.loginUser = async (req,res) => {
             )
         }
         
-        // const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
+        const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
         
-        // if(!validPassword){
-        //     return res.json(
-        //         {
-        //             success: true,
-        //             message: "Wrong credentials2"
-        //         }
-        //     )
-        // }
+        if(!validPassword){
+            return res.json(
+                {
+                    success: true,
+                    message: "Wrong credentials"
+                }
+            )
+        }
         
         const token = jwt.sign(
             {
