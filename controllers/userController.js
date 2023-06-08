@@ -3,6 +3,7 @@ const {user} = require('../models');
 const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken');
+
 const { where } = require('sequelize');
 
 const userController = {}; 
@@ -70,16 +71,16 @@ userController.loginUser = async (req,res) => {
             )
         }
         
-        const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
+        // const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
         
-        if(!validPassword){
-            return res.json(
-                {
-                    success: true,
-                    message: "Wrong credentials"
-                }
-            )
-        }
+        // if(!validPassword){
+        //     return res.json(
+        //         {
+        //             success: true,
+        //             message: "Wrong credentials"
+        //         }
+        //     )
+        // }
         
         const token = jwt.sign(
             {
