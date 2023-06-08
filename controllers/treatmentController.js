@@ -62,4 +62,44 @@ treatmentController.deleteTreatment = async (req,res) => {
     }
 }
 
+treatmentController.updateTreatment = async (req,res) => {
+
+    try {
+
+        const { name, price, duration, id} = req.body 
+        
+
+        const results = await treatment.update(
+        {
+            name: name,
+            price: price,
+            duration: duration
+        },
+        {
+            where: {
+                id: id
+            }
+        })
+
+        return res.json(
+            {
+                success: "true",
+                message: "Treatment updated",
+                results: results
+                
+            
+            }
+        )
+        
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Update failed",
+            error: error.message
+        });
+    }
+
+}
+
 module.exports = treatmentController
