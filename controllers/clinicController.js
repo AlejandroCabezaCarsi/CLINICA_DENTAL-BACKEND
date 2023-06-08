@@ -103,5 +103,54 @@ clinicController.updateClinic = async (req,res) => {
     }
 }
 
+clinicController.getClinic = async (req, res) => {
+    try {
+        
+        const getClinic = await clinic.findOne({
+            where: {
+                id: req.body.id
+            }, 
+            attributes: ['address','number','email','city']
+        }); 
+
+        return res.json({
+            success: "true",
+            message: "Here you have the clinic",
+            getClinic: getClinic
+        })
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get clinic failed",
+            error: error.message
+        });
+    }
+}
+
+clinicController.getAllClinics = async (req, res) => {
+    try {
+        
+        const getAllClinics = await clinic.findAll({
+            attributes: ['id','address','number','email','city']
+        }); 
+
+        return res.json({
+            success: "true",
+            message: "Here you have the clinics",
+            getAllClinics: getAllClinics
+        })
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get all clinics failed",
+            error: error.message
+        });
+    }
+}
+
 
 module.exports = clinicController
