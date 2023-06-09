@@ -2,6 +2,9 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
+
+
+
   async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
@@ -12,6 +15,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
+    const bcrypt = require('bcrypt')
+
     return queryInterface.bulkInsert("users", [
       {
         id: 1,
