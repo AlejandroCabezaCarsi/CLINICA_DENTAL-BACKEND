@@ -141,8 +141,55 @@ appoinmentController.findAllAppoinments = async (req,res) =>{
             error: error.message
         });
     }
+}
 
+appoinmentController.findAppoinment = async (req,res) => {
+    try {
+        
+        const findAppointment = await appoinment.findOne({
+            where: {
+                id:req.body.id
+            },
 
+            attributes:{
+                exclude: ["userId", "treatmentId", "clinicId", "updatedAt","createdAt"]
+            },
+            
+            include: [
+                {
+                    attributes: {
+                        exclude: ["roleId", "password", "id","updatedAt","createdAt"]
+                    },
+                    model: user,
+                },
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: clinic,
+                }, 
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: treatment,
+                }
+            ]
+        })
+
+        return res.json({
+            success: true, 
+            data: findAppointment
+        })
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get failed",
+            error: error.message
+        });
+    }
 }
 
 module.exports = appoinmentController
