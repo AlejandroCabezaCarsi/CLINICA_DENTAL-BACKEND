@@ -1,4 +1,5 @@
-const {appoinment} = require('../models');
+const {appoinment, treatment, user, clinic} = require('../models');
+
 
 const appoinmentController = {}; 
 
@@ -95,6 +96,52 @@ appoinmentController.updateAppoinment = async (req,res) => {
 
         });
     }
+}
+
+appoinmentController.findAllAppoinments = async (req,res) =>{
+
+    try {
+        const buscaCitas = await appoinment.findAll({
+
+            attributes:{
+                exclude: ["userId", "treatmentId", "clinicId", "updatedAt","createdAt"]
+            },
+            
+            include: [
+                {
+                    attributes: {
+                        exclude: ["roleId", "password", "id","updatedAt","createdAt"]
+                    },
+                    model: user,
+                },
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: clinic,
+                }, 
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: treatment,
+                }
+            ]
+        })
+
+        return res.json({
+            success: true,
+            data: buscaCitas
+        })
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get failed",
+            error: error.message
+        });
+    }
+
 
 }
 
