@@ -1,10 +1,11 @@
-const {user} = require('../models'); 
+const {user, role} = require('../models'); 
 
 const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken');
 
 const { where } = require('sequelize');
+
 
 const userController = {}; 
 
@@ -185,6 +186,81 @@ userController.updateUser = async (req,res) => {
         });
     }
 
+}
+
+userController.getUser = async (req,res) =>{
+
+try {
+    
+    const userId = req.body.userId
+
+    const buscaUsuario = await user.findByPk(
+
+        userId,
+        {
+            attributes: {
+                exclude : ["password","updatedAt","createdAt", "roleId"]
+            },
+
+            include: [
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: role,
+                }
+            ]
+        }
+    )
+
+    return res.json(buscaUsuario)
+
+
+} catch (error) {
+    return res.status(500).json({ 
+
+        success: true,
+        message: "Get failed",
+        error: error.message
+    });
+}
+
+
+}
+
+userController.getAllUsers = async (req,res) => {
+    try {
+        
+        
+            const buscaUsuarios = await user.findAll({
+                attributes: {
+                    exclude : ["password","updatedAt","createdAt", "roleId"]
+                },
+    
+                include: [
+                    {
+                        attributes: {
+                            exclude: ["updatedAt","createdAt"]
+                        },
+                        model: role,
+                    }
+                ]
+            })
+
+            return res.json({
+                success: true,
+                data: buscaUsuarios
+            })
+       
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get failed",
+            error: error.message
+        });
+    }
 }
 
 module.exports = userController
