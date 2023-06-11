@@ -58,7 +58,43 @@ appoinmentController.deleteAppoinment = async (req,res) => {
 
         });
     }
+}
 
+appoinmentController.updateAppoinment = async (req,res) => {
+
+    try {
+        
+        const results = await appoinment.update({
+            treatmentId: req.body.treatmentId, 
+            clinicId: req.body.clinicId, 
+            date: req.body.date,
+            comments: req.body.comments
+        },
+        {
+            where: {
+                userId: req.body.userId,
+                id: req.body.userId
+            }
+        })
+
+        return res.json(
+            {
+                success: "true",
+                message: "User updated",
+                data: results
+                
+            
+            })
+
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "can't update the appoinment",
+            error: error.message
+
+        });
+    }
 
 }
 
