@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       
-      models.appointment.belongsTo(models.user)
-      models.appointment.belongsTo(models.clinic)
-      models.appointment.belongsTo(models.treatment)
+      models.appoinment.belongsTo(models.user)
+      models.appoinment.belongsTo(models.clinic)
+      models.appoinment.belongsTo(models.treatment)
       
     }
   }

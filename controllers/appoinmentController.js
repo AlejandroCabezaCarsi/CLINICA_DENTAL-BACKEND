@@ -5,11 +5,10 @@ const appoinmentController = {};
 appoinmentController.createAppoinment = async (req,res) => {
 
     try {
-        // Obtén los datos de la solicitud
+
         const { userId, medicId, treatmentId, clinicId, date, comments } = req.body;
     
-        // Crea la cita en la base de datos
-        const appointment = await appoinment.create({
+        const createAppointment = await appoinment.create({
             userId,
             medicId,
             treatmentId,
@@ -20,55 +19,47 @@ appoinmentController.createAppoinment = async (req,res) => {
             updatedAt: new Date(),
         });
     
-        // Carga los datos relacionados utilizando consultas de Sequelize
-        // const createdAppoinment = await appoinment.findByPk(appointment.id, {
-        // include: [
-        //     { model: user, attributes: ['name'] },
-        //     /*{ model: Doctor, attributes: ['name'] },*/
-        //     { model: treatment },
-        //     { model: clinic },
-        //     ],
-        // });
-    
-        // Responde con la cita creada y los datos relacionados
-        // res.json(createdAppoinment);
         res.json({
-            message:"PRUEBAAAAA",
-            data
+            message:"A",
+            data: createAppointment
         })
         } catch (error) {
 
-        // Manejo de errores
-        console.error(error);
-        res.status(500).json({ message: 'Error creating appointment' });
+            return res.status(500).json({ 
+
+                success: true,
+                message: "can't create an appoinment",
+                error: error.message
+    
+            });
       }
     };
 
-// try {
+appoinmentController.deleteAppoinment = async (req,res) => {
 
-//     const {userId, medicId, treatmentId, clinicId, date} = req.body
+    try {
+        const results = await appoinment.destroy({
+            where: {
+                id: req.body.id,
+            }
+        })
 
-//     const createAppoinment = await appoinment.create({
+        return res.json({
+            succes: true, 
+            message: "Appointment deleted correctly",
+            data: results
+        })
+    } catch (error) {
+        return res.status(500).json({ 
 
-//         userId: userId, 
-//         medicId: medicId, 
-//         treatmentId: treatmentId, 
-//         clinicId: treatmentId, 
-//         date: date
+            success: true,
+            message: "can't delete the appoinment",
+            error: error.message
 
-//     })
+        });
+    }
 
-//     return res.json({
 
-//         success: true,
-//         message: "Appoinment created correctly",
-//         data: createAppoinment
-
-//     })
-// } catch (error) {
-    
-// }
-// }
-
+}
 
 module.exports = appoinmentController
