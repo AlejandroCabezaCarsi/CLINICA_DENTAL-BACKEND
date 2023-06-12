@@ -189,6 +189,36 @@ medicController.createMedic = async (req, res) => {
       });
     }
   };
+
+  medicController.getAllMedics = async (req, res) => {
+    try {
+      const buscaMedicos = await medic.findAll({
+        attributes: {
+          exclude: ["password", "updatedAt", "createdAt", "roleId"],
+        },
+  
+        include: [
+          {
+            attributes: {
+              exclude: ["updatedAt", "createdAt"],
+            },
+            model: role,
+          },
+        ],
+      });
+  
+      return res.json({
+        success: true,
+        data: buscaMedicos,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: true,
+        message: "Get failed",
+        error: error.message,
+      });
+    }
+  };
   
 
 module.exports = medicController

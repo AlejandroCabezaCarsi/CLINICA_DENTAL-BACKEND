@@ -6,6 +6,7 @@ router.post('/login', medicController.loginMedic);
 router.delete('/delete', medicController.deleteMedic);
 router.put('/update', medicController.updateMedic);
 router.get('/getOneMedic', medicController.getMedic);
+router.get('/getAllMedics', medicController.getAllMedics);
 
 
 
