@@ -10,10 +10,10 @@ const auth = require('../middlewares/verifyToken');
 
 router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser);
-router.delete('/delete',isSuperAdmin, userController.deleteUser);
+router.delete('/delete',auth, isSuperAdmin, userController.deleteUser);
 router.put('/update',auth,checkAdminOrSuperAdmin, userController.updateUser);
-router.get('/getUser', userController.getUser);
-router.get('/getAllUsers', userController.getAllUsers);
+router.get('/getUser',auth, userController.getUser);
+router.get('/getAllUsers',auth, userController.getAllUsers);
 
 
 
