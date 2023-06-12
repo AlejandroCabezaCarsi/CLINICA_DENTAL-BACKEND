@@ -17,7 +17,11 @@ module.exports = {
         }
       },
       medicId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'medics',
+          key: 'id'       
+        }
       },
       treatmentId: {
         type: Sequelize.INTEGER,

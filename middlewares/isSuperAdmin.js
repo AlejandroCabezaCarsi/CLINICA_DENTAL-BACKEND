@@ -7,7 +7,7 @@ const isSuperAdmin = (req, res, next) => {
 
                 success: true,
 
-                message: "You dont have permissions"
+                message: "You dont have permissions PRUEBA"
             });
         }
 

@@ -11,9 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       
-      models.appoinment.belongsTo(models.user)
-      models.appoinment.belongsTo(models.clinic)
-      models.appoinment.belongsTo(models.treatment)
+      models.appoinment.belongsTo(models.user);
+      models.appoinment.belongsTo(models.clinic);
+      models.appoinment.belongsTo(models.treatment);
+      models.appoinment.belongsTo(models.medic);
       
     }
   }
@@ -23,8 +24,15 @@ module.exports = (sequelize, DataTypes) => {
     references: {
       model: 'users',
       key: 'id'
-    }},
-    medicId: DataTypes.STRING,
+      }
+    },
+    medicId:{
+      type: DataTypes.STRING,
+    references: {
+      model: 'medics',
+      key: 'id'
+      }
+    },
     treatmentId: {
       type: DataTypes.INTEGER,
       references: {

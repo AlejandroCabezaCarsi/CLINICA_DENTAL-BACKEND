@@ -19,7 +19,7 @@ const auth = (req, res, next) => {
 
         const token = bearerToken.split(" ")[1];         
 
-        const decoded = jwt.verify(token, 'secreto');
+        const decoded = jwt.verify(token, 'zumitoDePiña');
 
         req.userId = decoded.userId;
 

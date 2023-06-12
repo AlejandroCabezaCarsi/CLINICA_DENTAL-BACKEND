@@ -72,16 +72,16 @@ userController.loginUser = async (req,res) => {
             )
         }
         
-        // const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
+        const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
         
-        // if(!validPassword){
-        //     return res.json(
-        //         {
-        //             success: true,
-        //             message: "Wrong credentials"
-        //         }
-        //     )
-        // }
+        if(!validPassword){
+            return res.json(
+                {
+                    success: true,
+                    message: "Wrong credentials"
+                }
+            )
+        }
         
         const token = jwt.sign(
             {
@@ -172,6 +172,7 @@ userController.updateUser = async (req,res) => {
             {
                 success: "true",
                 message: "User updated",
+                data: results
                 
             
             }
@@ -233,6 +234,7 @@ userController.getAllUsers = async (req,res) => {
         
         
             const buscaUsuarios = await user.findAll({
+                
                 attributes: {
                     exclude : ["password","updatedAt","createdAt", "roleId"]
                 },

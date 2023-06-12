@@ -147,6 +147,7 @@ appoinmentController.findAppoinment = async (req,res) => {
     try {
         
         const findAppointment = await appoinment.findOne({
+
             where: {
                 id:req.body.id
             },
