@@ -1,4 +1,4 @@
-const {medic} = require('../models'); 
+const {medic, role} = require('../models'); 
 
 const medicController = {}
 
@@ -149,6 +149,42 @@ medicController.createMedic = async (req, res) => {
       return res.status(500).json({
         success: true,
         message: "Update failed",
+        error: error.message,
+      });
+    }
+  };
+
+  medicController.getMedic = async (req, res) => {
+    try {
+      const collegiateNumber = req.body.collegiateNumber;
+      const name = req.body.name
+  
+      const buscaMedico = await medic.findOne({
+        where: {
+            collegiateNumber: collegiateNumber
+        },
+        attributes: {
+          exclude: ["password", "updatedAt", "createdAt", "roleId"],
+        },
+  
+        include: [
+          {
+            attributes: {
+              exclude: ["updatedAt", "createdAt"],
+            },
+            model: role,
+          },
+        ],
+      });
+  
+      return res.json({
+        message: "Medic retrieved",
+        data: buscaMedico
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: true,
+        message: "Get failed",
         error: error.message,
       });
     }
