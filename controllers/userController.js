@@ -65,9 +65,9 @@ userController.loginUser = async (req, res) => {
 
     const token = jwt.sign(
       {
-        userId: user.id,
-        roleId: user.roleId,
-        email: user.email,
+        userId: buscaUsuario.id,
+        roleId: buscaUsuario.roleId,
+        email: buscaUsuario.email
       },
       "zumitoDePiña",
       {
