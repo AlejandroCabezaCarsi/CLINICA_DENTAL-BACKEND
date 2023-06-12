@@ -114,4 +114,45 @@ medicController.createMedic = async (req, res) => {
     }
   };
 
+  medicController.updateMedic = async (req, res) => {
+    try {
+      const { name, lastname, email, password, phoneNumber,speciality, collegiateNumber } = req.body;
+    
+      if (password.length < 4) {
+        return res.send("Password must be longer than 4 characters");
+      }
+  
+      const newPassword = bcrypt.hashSync(req.body.password, 8);
+  
+      const results = await medic.update(
+        {
+          name: name,
+          lastname: lastname,
+          email: email,
+          password: newPassword,
+          phoneNumber: phoneNumber,
+          speciality: speciality
+        },
+        {
+          where: {
+            collegiateNumber: collegiateNumber
+          },
+        }
+      );
+  
+      return res.json({
+        success: "true",
+        message: "Medic updated",
+        data: results,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: true,
+        message: "Update failed",
+        error: error.message,
+      });
+    }
+  };
+  
+
 module.exports = medicController
