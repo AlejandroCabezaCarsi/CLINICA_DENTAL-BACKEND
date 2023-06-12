@@ -37,6 +37,13 @@ module.exports = {
           key: 'id'
         }
       },
+      price: {
+        type : Sequelize.INTEGER,
+        references: {
+          model: 'treatments',
+          key: 'id'
+      }
+    },
       date: {
         type: Sequelize.STRING
       },

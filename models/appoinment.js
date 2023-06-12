@@ -47,6 +47,13 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
+    price: {
+      type : DataTypes.INTEGER,
+      references: {
+        model: 'treatments',
+        key: 'id'
+    }
+  },
     date: DataTypes.STRING,
     comments: DataTypes.STRING
   }, {
