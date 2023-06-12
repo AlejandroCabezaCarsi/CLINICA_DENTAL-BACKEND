@@ -1,23 +1,21 @@
-const express = require('express'); 
+const express = require("express");
 
-const db = require('./db');
+const db = require("./db");
 
-const router = require('./router');
+const router = require("./router");
 
-const app = express(); 
+const app = express();
 
-const PORT = 3000; 
+const PORT = 3000;
 
 app.use(express.json());
 
-app.use(router)
+app.use(router);
 
-db.then(() =>
-    {
-        app.listen(3000, () => {
-    console.log('Server is running on port ' + PORT)
-    })
-    }
-).catch((error) =>{
-    console.log('Error starting server', error.message)
-})
+db.then(() => {
+  app.listen(3000, () => {
+    console.log("Server is running on port " + PORT);
+  });
+}).catch((error) => {
+  console.log("Error starting server", error.message);
+});
