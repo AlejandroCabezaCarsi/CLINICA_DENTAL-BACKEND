@@ -64,9 +64,10 @@ medicController.loginMedic = async (req, res) => {
 
     const token = jwt.sign(
       {
-        userId: medic.id,
-        roleId: medic.roleId,
-        email: medic.email,
+        medicId: buscaMedico.id,
+        roleId: buscaMedico.roleId,
+        email: buscaMedico.email,
+        
       },
       "zumitoDePiña",
       {

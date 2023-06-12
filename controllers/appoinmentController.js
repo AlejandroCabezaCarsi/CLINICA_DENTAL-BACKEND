@@ -1,4 +1,6 @@
 const {appoinment, treatment, user, clinic} = require('../models');
+const jwt = require("jsonwebtoken");
+
 
 
 const appoinmentController = {}; 
@@ -8,7 +10,7 @@ appoinmentController.createAppoinment = async (req,res) => {
     try {
 
         const { userId, medicId, treatmentId, clinicId, date, comments } = req.body;
-    
+
         const createAppointment = await appoinment.create({
             userId,
             medicId,
@@ -143,13 +145,93 @@ appoinmentController.findAllAppoinments = async (req,res) =>{
     }
 }
 
-appoinmentController.findAppoinment = async (req,res) => {
+appoinmentController.findAllAppoinmentsByUserId = async (req,res) =>{
+
     try {
-        
-        const findAppointment = await appoinment.findOne({
+
+        const bearerToken = req.headers.authorization;
+
+        if (!bearerToken) {
+          return res.status(401).json({
+            success: false,
+            message: "Access denied. Token is missing.",
+          });
+        }
+
+        const token = bearerToken.split(" ")[1];
+        const decoded = jwt.verify(token, "zumitoDePiña");
+        const userId = decoded.userId;
+
+        const buscaCitas = await appoinment.findAll({
 
             where: {
-                id:req.body.id
+                userId:userId
+            },
+
+            attributes:{
+                exclude: ["userId", "treatmentId", "clinicId", "updatedAt","createdAt"]
+            },
+            
+            include: [
+                {
+                    attributes: {
+                        exclude: ["roleId", "password", "id","updatedAt","createdAt"]
+                    },
+                    model: user,
+                },
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: clinic,
+                }, 
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: treatment,
+                }
+            ]
+        })
+
+        return res.json({
+            success: true,
+            data: buscaCitas
+        })
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get failed",
+            error: error.message
+        });
+    }
+}
+
+appoinmentController.findAppoinmentById = async (req,res) => {
+    
+    try {
+        const bearerToken = req.headers.authorization;
+
+        if (!bearerToken) {
+          return res.status(401).json({
+            success: false,
+            message: "Access denied. Token is missing.",
+          });
+        }
+
+        const token = bearerToken.split(" ")[1];
+        const decoded = jwt.verify(token, "zumitoDePiña");
+        const userId = decoded.userId;
+
+        const findAppointment = await appoinment.findOne({
+
+            
+
+            where: {
+
+                userId:userId,  
+                date: req.body.date
             },
 
             attributes:{
@@ -192,5 +274,69 @@ appoinmentController.findAppoinment = async (req,res) => {
         });
     }
 }
+
+appoinmentController.findAllAppoinmentsByMedicId = async (req,res) =>{
+
+    try {
+
+        const bearerToken = req.headers.authorization;
+
+        if (!bearerToken) {
+          return res.status(401).json({
+            success: false,
+            message: "Access denied. Token is missing.",
+          });
+        }
+
+        const token = bearerToken.split(" ")[1];
+        const decoded = jwt.verify(token, "zumitoDePiña");
+        const medicId = decoded.medicId;
+
+        const buscaCitas = await appoinment.findAll({
+
+            where: {
+                medicId: medicId
+            },
+
+            attributes:{
+                exclude: ["userId", "treatmentId", "clinicId", "updatedAt","createdAt"]
+            },
+            
+            include: [
+                {
+                    attributes: {
+                        exclude: ["roleId", "password", "id","updatedAt","createdAt"]
+                    },
+                    model: user,
+                },
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: clinic,
+                }, 
+                {
+                    attributes: {
+                        exclude: ["updatedAt","createdAt"]
+                    },
+                    model: treatment,
+                }
+            ]
+        })
+
+        return res.json({
+            success: true,
+            data: buscaCitas
+        })
+    } catch (error) {
+        return res.status(500).json({ 
+
+            success: true,
+            message: "Get failed",
+            error: error.message
+        });
+    }
+}
+
 
 module.exports = appoinmentController
