@@ -8,11 +8,11 @@ const auth = (req, res, next) => {
 
         if(!bearerToken) {
 
-            return res.json(
+            return res.status(200).json(
 
                 {
                     succes: true,
-                    message: "no puedes pasar"
+                    message: "You don't have athoritation"
                 }
             )
         }

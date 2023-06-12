@@ -9,6 +9,15 @@ const { where } = require("sequelize");
 const userController = {};
 
 userController.createUser = async (req, res) => {
+  const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!compruebaEmail.test(req.body.email)) {
+    return res.status(400).json({
+      success: false,
+      message: "Email not valid",
+    });
+  }
+
   try {
     if (req.body.password.length < 4) {
       return res.send("Password must be longer than 4 characters");
@@ -26,7 +35,7 @@ userController.createUser = async (req, res) => {
       roleId: req.body.roleId,
     });
 
-    return res.json(newUser);
+    return res.status(200).json(newUser);
   } catch (error) {
     return res.status(500).json({
       success: true,
@@ -48,7 +57,7 @@ userController.loginUser = async (req, res) => {
     });
 
     if (!buscaUsuario) {
-      return res.json({
+      return res.status(500).json({
         success: true,
         message: "Wrong credentials",
       });
@@ -57,7 +66,7 @@ userController.loginUser = async (req, res) => {
     const validPassword = bcrypt.compareSync(password, buscaUsuario.password);
 
     if (!validPassword) {
-      return res.json({
+      return res.status(500).json({
         success: true,
         message: "Wrong credentials",
       });
@@ -67,7 +76,7 @@ userController.loginUser = async (req, res) => {
       {
         userId: buscaUsuario.id,
         roleId: buscaUsuario.roleId,
-        email: buscaUsuario.email
+        email: buscaUsuario.email,
       },
       "zumitoDePiña",
       {
@@ -75,7 +84,7 @@ userController.loginUser = async (req, res) => {
       }
     );
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "User Logged",
       token: token,
@@ -98,7 +107,7 @@ userController.deleteUser = async (req, res) => {
         dni: req.body.dni,
       },
     });
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "User deleted correctly",
       results,
@@ -137,7 +146,7 @@ userController.updateUser = async (req, res) => {
       }
     );
 
-    return res.json({
+    return res.status(200).json({
       success: "true",
       message: "User updated",
       data: results,
@@ -197,7 +206,7 @@ userController.getAllUsers = async (req, res) => {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: buscaUsuarios,
     });

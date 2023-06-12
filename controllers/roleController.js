@@ -12,7 +12,7 @@ roleController.createRole = async (req, res) => {
             }
         ); 
 
-        return res.json(results)
+        return res.status(200).json(results)
 
     } catch (error){
 
@@ -38,7 +38,7 @@ roleController.updateRole = async (req,res) => {
             }
         );
 
-        return res.json(results)
+        return res.status(200).json(results)
 
     } catch (error) {
         return res.status(500).json({

@@ -23,7 +23,7 @@ appoinmentController.createAppoinment = async (req,res) => {
         });
     
         res.json({
-            message:"A",
+            message:"Appointment created",
             data: createAppointment
         })
         } catch (error) {
@@ -31,7 +31,7 @@ appoinmentController.createAppoinment = async (req,res) => {
             return res.status(500).json({ 
 
                 success: true,
-                message: "can't create an appoinment",
+                message: "Can't create an appoinment",
                 error: error.message
     
             });
@@ -47,7 +47,7 @@ appoinmentController.deleteAppoinment = async (req,res) => {
             }
         })
 
-        return res.json({
+        return res.status(200).json({
             succes: true, 
             message: "Appointment deleted correctly",
             data: results
@@ -80,7 +80,7 @@ appoinmentController.updateAppoinment = async (req,res) => {
             }
         })
 
-        return res.json(
+        return res.status(200)json(
             {
                 success: "true",
                 message: "User updated",
@@ -131,7 +131,7 @@ appoinmentController.findAllAppoinments = async (req,res) =>{
             ]
         })
 
-        return res.json({
+        return res.status(200).json({
             success: true,
             data: buscaCitas
         })
@@ -194,7 +194,7 @@ appoinmentController.findAllAppoinmentsByUserId = async (req,res) =>{
             ]
         })
 
-        return res.json({
+        return res.status(200).json({
             success: true,
             data: buscaCitas
         })
@@ -260,7 +260,7 @@ appoinmentController.findAppoinmentById = async (req,res) => {
             ]
         })
 
-        return res.json({
+        return res.status(200).json({
             success: true, 
             data: findAppointment
         })
@@ -324,7 +324,7 @@ appoinmentController.findAllAppoinmentsByMedicId = async (req,res) =>{
             ]
         })
 
-        return res.json({
+        return res.status(200).json({
             success: true,
             data: buscaCitas
         })

@@ -16,7 +16,7 @@ treatmentController.createTreatment = async (req,res) => {
             }
         )
 
-        return res.json(
+        return res.status(200).json(
             {
                 success:true,
                 message: "Treatment created", 
@@ -29,7 +29,7 @@ treatmentController.createTreatment = async (req,res) => {
         return res.status(500).json({ 
 
             success: true,
-            message: "can't create treatment hola",
+            message: "can't create treatment",
             error: error.message
 
         }); 
@@ -45,7 +45,7 @@ treatmentController.deleteTreatment = async (req,res) => {
                 name: req.body.name,
             }
         })
-        return res.json(
+        return res.status(200).json(
             {
                 success:true,
                 message: "Treatment deleted correctly",
@@ -81,7 +81,7 @@ treatmentController.updateTreatment = async (req,res) => {
             }
         })
 
-        return res.json(
+        return res.status(200).json(
             {
                 success: "true",
                 message: "Treatment updated",
@@ -111,7 +111,7 @@ treatmentController.getTreatment = async (req, res) => {
             attributes: ['name','price','duration']
         }); 
 
-        return res.json({
+        return res.status(200).json({
             success: "true",
             message: "Here you have the treatment",
             buscaTratamientos: buscaTratamientos
@@ -134,7 +134,7 @@ treatmentController.getAllTreatments = async (req, res) => {
             attributes: ['id','name','price','duration']
         }); 
 
-        return res.json({
+        return res.status(200).status(200).json({
             success: "true",
             message: "Here you have the treatments",
             buscaTratamientos: buscaTratamientos

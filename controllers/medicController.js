@@ -7,6 +7,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 medicController.createMedic = async (req, res) => {
+  const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!compruebaEmail.test(req.body.email)) {
+    return res.status(400).json({
+      success: false,
+      message: "Email not valid",
+    });
+  }
+
   try {
     if (req.body.password.length < 4) {
       return res.send("Password must be longer than 4 characters");
@@ -17,7 +26,7 @@ medicController.createMedic = async (req, res) => {
     const newMedic = await medic.create({
       name: req.body.name,
       lastname: req.body.lastname,
-      roleId: req.body.roleId,
+      roleId: 2,
       speciality: req.body.speciality,
       collegiateNumber: req.body.collegiateNumber,
       email: req.body.email,
@@ -47,7 +56,7 @@ medicController.loginMedic = async (req, res) => {
     });
 
     if (!buscaMedico) {
-      return res.json({
+      return res.status(500).json({
         success: true,
         message: "Wrong credentials",
       });
@@ -56,7 +65,7 @@ medicController.loginMedic = async (req, res) => {
     const validPassword = bcrypt.compareSync(password, buscaMedico.password);
 
     if (!validPassword) {
-      return res.json({
+      return res.status(500).json({
         success: true,
         message: "Wrong credentials",
       });
@@ -67,7 +76,6 @@ medicController.loginMedic = async (req, res) => {
         medicId: buscaMedico.id,
         roleId: buscaMedico.roleId,
         email: buscaMedico.email,
-        
       },
       "zumitoDePiña",
       {
@@ -75,7 +83,7 @@ medicController.loginMedic = async (req, res) => {
       }
     );
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "User Logged",
       token: token,
@@ -96,7 +104,7 @@ medicController.deleteMedic = async (req, res) => {
         collegiateNumber: req.body.collegiateNumber,
       },
     });
-    return res.json({
+    return res.status(200).json({
       success: true,
       message: "Medic deleted correctly",
       results,
@@ -144,7 +152,7 @@ medicController.updateMedic = async (req, res) => {
       }
     );
 
-    return res.json({
+    return res.status(200).json({
       success: "true",
       message: "Medic updated",
       data: results,
@@ -181,7 +189,7 @@ medicController.getMedic = async (req, res) => {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       message: "Medic retrieved",
       data: buscaMedico,
     });
@@ -211,7 +219,7 @@ medicController.getAllMedics = async (req, res) => {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       data: buscaMedicos,
     });

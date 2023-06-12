@@ -17,7 +17,7 @@ clinicController.createClinic = async (req,res) => {
             }
         )
 
-        return res.json(
+        return res.status(201).json(
             {
                 success:true,
                 message: "Clinic created", 
@@ -30,7 +30,7 @@ clinicController.createClinic = async (req,res) => {
         return res.status(500).json({ 
 
             success: true,
-            message: "can't create treatment hola",
+            message: "can't create treatment",
             error: error.message
 
         }); 
@@ -46,7 +46,7 @@ clinicController.deleteClinic = async (req,res) => {
                 id: req.body.id,
             }
         })
-        return res.json(
+        return res.status(200).json(
             {
                 success:true,
                 message: "Clinic deleted correctly",
@@ -83,7 +83,7 @@ clinicController.updateClinic = async (req,res) => {
             }
         })
 
-        return res.json(
+        return res.status(200).json(
             {
                 success: "true",
                 message: "Clinic updated",
@@ -113,7 +113,7 @@ clinicController.getClinic = async (req, res) => {
             attributes: ['address','number','email','city']
         }); 
 
-        return res.json({
+        return res.status(200).json({
             success: "true",
             message: "Here you have the clinic",
             getClinic: getClinic
@@ -136,7 +136,7 @@ clinicController.getAllClinics = async (req, res) => {
             attributes: ['id','address','number','email','city']
         }); 
 
-        return res.json({
+        return res.status(200).json({
             success: "true",
             message: "Here you have the clinics",
             getAllClinics: getAllClinics
