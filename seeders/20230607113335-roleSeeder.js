@@ -28,10 +28,17 @@ module.exports = {
       },
       {
       id: 3,
-      role: 'paciente',
+      role: 'medic',
       createdAt: new Date(),
       updatedAt: new Date()
-      }])
+      },
+      {
+      id: 4,
+      role: 'patient',
+      createdAt: new Date(),
+      updatedAt: new Date()
+      }
+    ])
   },
 
   async down (queryInterface, Sequelize) {
