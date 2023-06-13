@@ -38,7 +38,12 @@ module.exports = {
       },
       roleId: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
+        references: {
+          model: 'roles',
+          key: 'id'
+        }
+
       },
       isActive: {
         type: Sequelize.BOOLEAN,
