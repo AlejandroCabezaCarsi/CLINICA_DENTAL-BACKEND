@@ -24,7 +24,7 @@ medicController.createMedic = async (req, res) => {
         message: "A dentist with that userId already exists"
       })
     }
-    
+   
     const newMedic = await medic.create({
 
       userId: userId,
@@ -42,7 +42,6 @@ medicController.createMedic = async (req, res) => {
                 id: userId
               }
       }
-  
     )
 
     return res.json({
@@ -62,58 +61,6 @@ medicController.createMedic = async (req, res) => {
   }
 };
 
-medicController.loginMedic = async (req, res) => {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const buscaMedico = await medic.findOne({
-      where: {
-        email: email,
-      },
-    });
-
-    if (!buscaMedico) {
-      return res.status(500).json({
-        success: true,
-        message: "Wrong credentials",
-      });
-    }
-
-    const validPassword = bcrypt.compareSync(password, buscaMedico.password);
-
-    if (!validPassword) {
-      return res.status(500).json({
-        success: true,
-        message: "Wrong credentials",
-      });
-    }
-
-    const token = jwt.sign(
-      {
-        medicId: buscaMedico.id,
-        roleId: buscaMedico.roleId,
-        email: buscaMedico.email,
-      },
-      "zumitoDePiña",
-      {
-        expiresIn: "8h",
-      }
-    );
-
-    return res.status(200).json({
-      success: true,
-      message: "User Logged",
-      token: token,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: true,
-      message: "Wrong credentials",
-      error: error.message,
-    });
-  }
-};
 
 medicController.deleteMedic = async (req, res) => {
   try {
