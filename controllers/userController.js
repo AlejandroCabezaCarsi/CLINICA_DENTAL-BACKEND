@@ -116,6 +116,7 @@ userController.loginUser = async (req, res) => {
 //--- DELETE USER BY SUPERADMIN OR ADMIN ---//
 
 userController.SAOAdeleteUser = async (req, res) => {
+
   try {
 
     const results = await user.destroy({
@@ -138,6 +139,45 @@ userController.SAOAdeleteUser = async (req, res) => {
     });
   }
 };
+
+
+//--- USER TO SET FALSE IN ISACTIVE ATTRIBUTE ---//
+
+userController.isActiveFalse = async (req, res) => {
+
+  try {
+
+    const userId = req.userId
+
+    console.log(userId)
+
+    const results = await user.update(
+      {
+        isActive: false
+      },
+      {
+        where: {
+
+          id: userId
+        }
+      }
+    );
+    
+    return res.status(200).json({
+      success: true,
+      message: "User deleted correctly",
+      results: results
+    });
+  } catch (error) {
+
+    return res.status(500).json({
+      success: true,
+      message: "can't cancel user",
+      error: error.message,
+    });
+  }
+};
+
 
 userController.updateUser = async (req, res) => {
   try {
