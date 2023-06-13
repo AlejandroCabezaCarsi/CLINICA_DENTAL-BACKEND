@@ -10,25 +10,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        required: true
+        
       },
       medicId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        required: true
       },
       treatmentId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        required: true
       },
       clinicId: {
-        type: Sequelize.INTEGER
-      },
-      clinicId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        required: true
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        required: true
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true
       },
       comments: {
         type: Sequelize.STRING
