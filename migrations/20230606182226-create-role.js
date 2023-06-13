@@ -11,6 +11,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.STRING,
+        required: true
       },
       createdAt: {
         allowNull: true,

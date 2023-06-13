@@ -13,11 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       models.role.hasMany(models.user, {
         foreignKey: 'roleId',
       })
-      models.role.hasMany(models.medic, {
-        foreignKey: 'roleId',
-      })
-
-      
     }
   }
   role.init({
