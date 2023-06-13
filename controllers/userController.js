@@ -220,7 +220,7 @@ userController.updateUser = async (req, res) => {
 
 userController.getUser = async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.userId;
 
     const buscaUsuario = await user.findByPk(userId, {
       attributes: {
@@ -237,7 +237,11 @@ userController.getUser = async (req, res) => {
       ],
     });
 
-    return res.json(buscaUsuario);
+    return res.json({
+      success: true,
+      message: "This is your profile",
+      data: buscaUsuario
+    });
   } catch (error) {
     return res.status(500).json({
       success: true,
