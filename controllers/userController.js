@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const userController = {};
 
+
+//---CREATE USERS---//
+
 userController.createUser = async (req, res) => {
 
   const {name, lastname, email, dni, phoneNumber } = req.body
@@ -53,8 +56,12 @@ userController.createUser = async (req, res) => {
   }
 };
 
+
+//--- LOGIN USERS ---//
+
 userController.loginUser = async (req, res) => {
   try {
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -106,21 +113,24 @@ userController.loginUser = async (req, res) => {
   }
 };
 
-userController.deleteUser = async (req, res) => {
+//--- DELETE USER BY SUPERADMIN OR ADMIN ---//
+
+userController.SAOAdeleteUser = async (req, res) => {
   try {
+
     const results = await user.destroy({
       where: {
         name: req.body.name,
-        password: req.body.password,
         dni: req.body.dni,
       },
     });
     return res.status(200).json({
       success: true,
       message: "User deleted correctly",
-      results,
+      results: results
     });
   } catch (error) {
+
     return res.status(500).json({
       success: true,
       message: "can't cancel user",
