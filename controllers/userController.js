@@ -182,7 +182,7 @@ userController.isActiveFalse = async (req, res) => {
 userController.updateUser = async (req, res) => {
   try {
     const { name, lastname, email, password, phonenumber } = req.body;
-    const dni = req.params.dni;
+    
     if (password.length < 4) {
       return res.send("Password must be longer than 4 characters");
     }
@@ -199,7 +199,7 @@ userController.updateUser = async (req, res) => {
       },
       {
         where: {
-          id: req.body.userId,
+          id: req.userId,
         },
       }
     );

@@ -16,7 +16,7 @@ router.delete('/SAOAdelete',auth, checkAdminOrSuperAdmin, userController.SAOAdel
 router.put('/delete',auth, userController.isActiveFalse);
 
 
-router.put('/update',auth,checkAdminOrSuperAdmin, userController.updateUser);
+router.put('/update',auth, userController.updateUser);
 router.get('/getUser',auth, userController.getUser);
 router.get('/getAllUsers',auth, userController.getAllUsers);
 
