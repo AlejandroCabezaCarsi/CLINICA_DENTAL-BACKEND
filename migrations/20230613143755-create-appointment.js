@@ -11,24 +11,40 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
         
       },
       medicId: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
+        references: {
+          model: 'medics',
+          key: 'id'
+        }
       },
       treatmentId: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
+        references: {
+          model: 'treatments',
+          key: 'id'
+        }
       },
       clinicId: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
+        references: {
+          model: 'clinics',
+          key: 'id'
+        }
       },
       price: {
         type: Sequelize.INTEGER,
-        required: true
+        required: true,
       },
       date: {
         type: Sequelize.STRING,
