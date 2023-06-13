@@ -4,7 +4,6 @@ const isSuperAdmin = require('../middlewares/isSuperAdmin');
 const auth = require('../middlewares/verifyToken');
 
 router.post('/create',auth,isSuperAdmin, medicController.createMedic);
-router.post('/login', medicController.loginMedic);
 router.delete('/delete',auth,isSuperAdmin, medicController.deleteMedic);
 router.put('/update',auth,isSuperAdmin, medicController.updateMedic);
 router.get('/getOneMedic',auth,isSuperAdmin, medicController.getMedic);

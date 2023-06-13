@@ -1,4 +1,4 @@
-const { medic, role } = require("../models");
+const { medic, user } = require("../models");
 
 const medicController = {};
 
@@ -7,38 +7,56 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 medicController.createMedic = async (req, res) => {
-  const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  if (!compruebaEmail.test(req.body.email)) {
-    return res.status(400).json({
-      success: false,
-      message: "Email not valid",
-    });
-  }
+  
+  const {userId, speciality, collegiateNumber} = req.body
 
   try {
-    if (req.body.password.length < 4) {
-      return res.send("Password must be longer than 4 characters");
+
+    const findMedic = await medic.findOne({
+      where: {
+        userId:userId
+      }
+    })
+
+    if (findMedic){
+      return res.status(400).json({
+        success:true,
+        message: "A dentist with that userId already exists"
+      })
     }
-
-    const newPassword = bcrypt.hashSync(req.body.password, 8);
-
+    
     const newMedic = await medic.create({
-      name: req.body.name,
-      lastname: req.body.lastname,
-      roleId: 2,
-      speciality: req.body.speciality,
-      collegiateNumber: req.body.collegiateNumber,
-      email: req.body.email,
-      password: newPassword,
-      phonenumber: req.body.phonenumber,
+
+      userId: userId,
+      speciality: speciality,
+      collegiateNumber: collegiateNumber
+
     });
 
-    return res.json(newMedic);
+    const newRole = await user.update(
+      {
+      roleId: 3,
+      },
+      {
+        where: {
+                id: userId
+              }
+      }
+  
+    )
+
+    return res.json({
+      success: true,
+      message: "Medic created and role updated",
+      data: newMedic,
+      data: newRole
+
+    });
+
   } catch (error) {
     return res.status(500).json({
       success: true,
-      message: "can't create role",
+      message: "Create medic went wrong",
       error: error.message,
     });
   }
