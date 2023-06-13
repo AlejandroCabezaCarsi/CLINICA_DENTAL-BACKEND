@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const isSuperAdmin = (req, res, next) => {
   try {
     const bearerToken = req.headers.authorization;
