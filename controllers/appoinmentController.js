@@ -1,13 +1,13 @@
-const { appoinment, treatment, user, clinic } = require("../models");
+const { appointment, treatment, user, clinic } = require("../models");
 const jwt = require("jsonwebtoken");
 
-const appoinmentController = {};
+const appointmentController = {};
 
-appoinmentController.createAppoinment = async (req, res) => {
+appointmentController.createappointment = async (req, res) => {
   try {
     const { userId, medicId, treatmentId, clinicId, date, comments } = req.body;
 
-    const createAppointment = await appoinment.create({
+    const createAppointment = await appointment.create({
       userId,
       medicId,
       treatmentId,
@@ -25,15 +25,15 @@ appoinmentController.createAppoinment = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: true,
-      message: "Can't create an appoinment",
+      message: "Can't create an appointment",
       error: error.message,
     });
   }
 };
 
-appoinmentController.deleteAppoinment = async (req, res) => {
+appointmentController.deleteappointment = async (req, res) => {
   try {
-    const results = await appoinment.destroy({
+    const results = await appointment.destroy({
       where: {
         id: req.body.id,
       },
@@ -47,15 +47,15 @@ appoinmentController.deleteAppoinment = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: true,
-      message: "can't delete the appoinment",
+      message: "can't delete the appointment",
       error: error.message,
     });
   }
 };
 
-appoinmentController.updateAppoinment = async (req, res) => {
+appointmentController.updateappointment = async (req, res) => {
   try {
-    const results = await appoinment.update(
+    const results = await appointment.update(
       {
         treatmentId: req.body.treatmentId,
         clinicId: req.body.clinicId,
@@ -78,15 +78,15 @@ appoinmentController.updateAppoinment = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: true,
-      message: "can't update the appoinment",
+      message: "can't update the appointment",
       error: error.message,
     });
   }
 };
 
-appoinmentController.findAllAppoinments = async (req, res) => {
+appointmentController.findAllappointments = async (req, res) => {
   try {
-    const buscaCitas = await appoinment.findAll({
+    const buscaCitas = await appointment.findAll({
       attributes: {
         exclude: [
           "userId",
@@ -132,7 +132,7 @@ appoinmentController.findAllAppoinments = async (req, res) => {
   }
 };
 
-appoinmentController.findAllAppoinmentsByUserId = async (req, res) => {
+appointmentController.findAllappointmentsByUserId = async (req, res) => {
   try {
     const bearerToken = req.headers.authorization;
 
@@ -147,7 +147,7 @@ appoinmentController.findAllAppoinmentsByUserId = async (req, res) => {
     const decoded = jwt.verify(token, "zumitoDePiña");
     const userId = decoded.userId;
 
-    const buscaCitas = await appoinment.findAll({
+    const buscaCitas = await appointment.findAll({
       where: {
         userId: userId,
       },
@@ -197,7 +197,7 @@ appoinmentController.findAllAppoinmentsByUserId = async (req, res) => {
   }
 };
 
-appoinmentController.findAppoinmentById = async (req, res) => {
+appointmentController.findappointmentById = async (req, res) => {
   try {
     const bearerToken = req.headers.authorization;
 
@@ -212,7 +212,7 @@ appoinmentController.findAppoinmentById = async (req, res) => {
     const decoded = jwt.verify(token, "zumitoDePiña");
     const userId = decoded.userId;
 
-    const findAppointment = await appoinment.findOne({
+    const findAppointment = await appointment.findOne({
       where: {
         userId: userId,
         date: req.body.date,
@@ -263,7 +263,7 @@ appoinmentController.findAppoinmentById = async (req, res) => {
   }
 };
 
-appoinmentController.findAllAppoinmentsByMedicId = async (req, res) => {
+appointmentController.findAllappointmentsByMedicId = async (req, res) => {
   try {
     const bearerToken = req.headers.authorization;
 
@@ -278,7 +278,7 @@ appoinmentController.findAllAppoinmentsByMedicId = async (req, res) => {
     const decoded = jwt.verify(token, "zumitoDePiña");
     const medicId = decoded.medicId;
 
-    const buscaCitas = await appoinment.findAll({
+    const buscaCitas = await appointment.findAll({
       where: {
         medicId: medicId,
       },
@@ -328,4 +328,4 @@ appoinmentController.findAllAppoinmentsByMedicId = async (req, res) => {
   }
 };
 
-module.exports = appoinmentController;
+module.exports = appointmentController;

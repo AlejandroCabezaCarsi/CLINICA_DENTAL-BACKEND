@@ -1,15 +1,15 @@
 const router = require('express').Router()
 
-const appoinmentController = require('../controllers/appoinmentController');
+const appointmentController = require('../controllers/appointmentController');
 const checkAdminOrSuperAdmin = require('../middlewares/checkIsAdminOrSuperAdmin');
 const auth = require('../middlewares/verifyToken');
 
-router.post('/create',auth, appoinmentController.createAppoinment)
-router.delete('/delete',auth, checkAdminOrSuperAdmin, appoinmentController.deleteAppoinment)
-router.put('/update',auth, checkAdminOrSuperAdmin, appoinmentController.updateAppoinment)
-router.get('/getAllAppoinmentsByUserId',auth, appoinmentController.findAllAppoinmentsByUserId)
-router.get('/getAppointmentByUserId',auth, appoinmentController.findAppoinmentById)
-router.get('/getAllAppoinmentsByMedicId',auth, checkAdminOrSuperAdmin, appoinmentController.findAllAppoinmentsByMedicId)
+router.post('/create',auth, appointmentController.createappointment)
+router.delete('/delete',auth, checkAdminOrSuperAdmin, appointmentController.deleteappointment)
+router.put('/update',auth, checkAdminOrSuperAdmin, appointmentController.updateappointment)
+router.get('/getAllappointmentsByUserId',auth, appointmentController.findAllappointmentsByUserId)
+router.get('/getAppointmentByUserId',auth, appointmentController.findappointmentById)
+router.get('/getAllappointmentsByMedicId',auth, checkAdminOrSuperAdmin, appointmentController.findAllappointmentsByMedicId)
 
 
 module.exports = router
