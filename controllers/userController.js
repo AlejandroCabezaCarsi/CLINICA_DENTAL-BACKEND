@@ -4,11 +4,12 @@ const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
-const { where } = require("sequelize");
-
 const userController = {};
 
 userController.createUser = async (req, res) => {
+
+  const {name, lastname, email, dni, phoneNumber } = req.body
+
   const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   if (!compruebaEmail.test(req.body.email)) {
@@ -26,20 +27,27 @@ userController.createUser = async (req, res) => {
     const newPassword = bcrypt.hashSync(req.body.password, 8);
 
     const newUser = await user.create({
-      name: req.body.name,
-      lastname: req.body.lastname,
-      email: req.body.email,
+      name: name,
+      lastname: lastname,
+      email: email,
       password: newPassword,
-      phonenumber: req.body.phonenumber,
-      dni: req.body.dni,
-      roleId: req.body.roleId,
+      dni: dni,
+      phoneNumber: phoneNumber,
+      roleId: 4,
+      isActive: true
     });
 
-    return res.status(200).json(newUser);
+    return res.status(200).json({
+      success: true,
+      message: "User created",
+      data: newUser
+    });
+
   } catch (error) {
+
     return res.status(500).json({
       success: true,
-      message: "can't create role",
+      message: "Create user went wrong",
       error: error.message,
     });
   }
