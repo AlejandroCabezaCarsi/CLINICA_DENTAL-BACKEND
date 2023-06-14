@@ -166,24 +166,11 @@ appointmentController.findAllappointments = async (req, res) => {
 
 appointmentController.findAllappointmentsByUserId = async (req, res) => {
   try {
-    const bearerToken = req.headers.authorization;
-
-    if (!bearerToken) {
-      return res.status(401).json({
-        success: false,
-        message: "Access denied. Token is missing.",
-      });
-    }
-
-    const token = bearerToken.split(" ")[1];
-    const decoded = jwt.verify(token, "zumitoDePiña");
-    const userId = decoded.userId;
 
     const buscaCitas = await appointment.findAll({
       where: {
-        userId: userId,
+        userId: req.userId,
       },
-
       attributes: {
         exclude: [
           "userId",
