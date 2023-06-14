@@ -2,6 +2,9 @@ const { medic, user } = require("../models");
 
 const medicController = {};
 
+const { Op } = require("sequelize");
+
+
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
@@ -132,15 +135,18 @@ medicController.updateMedic = async (req, res) => {
 
 medicController.getMedic = async (req, res) => {
   try {
-    const collegiateNumber = req.body.collegiateNumber;
-    const name = req.body.name;
 
-    const buscaMedico = await medic.findOne({
+    const name = req.body.name;
+    const lastname = req.body.lastname;
+
+    const buscaMedico = await user.findOne({
       where: {
-        collegiateNumber: collegiateNumber,
+        name:name,
+        lastname:lastname,
+        roleId: 3,
       },
       attributes: {
-        exclude: ["password", "updatedAt", "createdAt", "roleId"],
+        exclude: ["password", "updatedAt", "createdAt", "roleId", "isActive", "phoneNumber","dni"],
       },
 
       include: [
@@ -148,7 +154,7 @@ medicController.getMedic = async (req, res) => {
           attributes: {
             exclude: ["updatedAt", "createdAt"],
           },
-          model: role,
+          model: medic,
         },
       ],
     });
