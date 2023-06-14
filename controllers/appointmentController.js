@@ -1,17 +1,49 @@
-const { appointment, treatment, user, clinic } = require("../models");
+const { appointment, treatment, user, clinic, medic } = require("../models");
 const jwt = require("jsonwebtoken");
 
 const appointmentController = {};
 
 appointmentController.createappointment = async (req, res) => {
   try {
-    const { userId, medicId, treatmentId, clinicId, date, comments } = req.body;
+    const {medicId, treatmentId, clinicId, date, comments } = req.body;
+
+    const medicSelected = await medic.findByPk(medicId)
+
+    if(!medicSelected){
+      return res.status(400).json({
+        success: true,
+        message: "Medic not found"
+      })
+    }
+
+    console.log(medicSelected);
+
+
+    const treatmentSelected = await treatment.findByPk(treatmentId); 
+
+    if(!treatmentSelected){
+      return res.status(400).json({
+        success: true,
+        message: "treatment not found"
+      })
+    }
+
+    const clinicSelected = await clinic.findByPk(clinicId); 
+
+    if(!clinicSelected){
+      return res.status(400).json({
+        success: true,
+        message: "Clinic not found"
+      })
+    }
+
 
     const createAppointment = await appointment.create({
-      userId,
-      medicId,
-      treatmentId,
-      clinicId,
+      userId: req.userId,
+      medicId: medicSelected.id,
+      treatmentId: treatmentSelected.id,
+      clinicId: clinicSelected.id,
+      price: treatmentSelected.price,
       date,
       comments,
       createdAt: new Date(),
