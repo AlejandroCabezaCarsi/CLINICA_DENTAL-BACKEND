@@ -203,6 +203,13 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
       ],
     });
 
+    if (buscaCitas.length === 0){
+      return res.status(200).json({
+        succes: true,
+        message: "You don't have any appointment"
+      })
+    }
+
     return res.status(200).json({
       success: true,
       data: buscaCitas,
