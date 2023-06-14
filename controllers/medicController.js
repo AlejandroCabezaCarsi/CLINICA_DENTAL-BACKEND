@@ -172,11 +172,16 @@ medicController.getMedic = async (req, res) => {
   }
 };
 
-medicController.getAllMedics = async (req, res) => {
+medicController.getAllMedicsByUsers = async (req, res) => {
   try {
-    const buscaMedicos = await medic.findAll({
+    const buscaMedicos = await user.findAll({
+
+      where: {
+        roleId:3
+      },
+
       attributes: {
-        exclude: ["password", "updatedAt", "createdAt", "roleId"],
+        exclude: ["password", "updatedAt", "createdAt", "roleId", "isActive", "phoneNumber","dni"],
       },
 
       include: [
@@ -184,7 +189,7 @@ medicController.getAllMedics = async (req, res) => {
           attributes: {
             exclude: ["updatedAt", "createdAt"],
           },
-          model: role,
+          model: medic,
         },
       ],
     });
