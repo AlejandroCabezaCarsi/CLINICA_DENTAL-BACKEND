@@ -71,6 +71,12 @@ userController.loginUser = async (req, res) => {
       },
     });
 
+    if(buscaUsuario.isActive === false){
+      return res.status(500).json({
+        message: "You cancelled your account. If you want to reactivate your account send an email with your DNI and Email"
+      })
+    }
+
     if (!buscaUsuario) {
       return res.status(500).json({
         success: true,
