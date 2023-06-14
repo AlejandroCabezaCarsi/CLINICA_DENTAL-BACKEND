@@ -182,6 +182,17 @@ userController.isActiveFalse = async (req, res) => {
 userController.updateUser = async (req, res) => {
   try {
     const { name, lastname, email, password, phonenumber } = req.body;
+
+    const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!compruebaEmail.test(req.body.email)) {
+    return res.status(400).json({
+      success: false,
+      message: "Email not valid",
+    });
+  }
+
+
     
     if (password.length < 4) {
       return res.send("Password must be longer than 4 characters");
