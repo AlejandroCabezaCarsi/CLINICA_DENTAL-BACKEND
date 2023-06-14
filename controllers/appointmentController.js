@@ -223,92 +223,22 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
   }
 };
 
-appointmentController.findappointmentById = async (req, res) => {
-  try {
-    const bearerToken = req.headers.authorization;
-
-    if (!bearerToken) {
-      return res.status(401).json({
-        success: false,
-        message: "Access denied. Token is missing.",
-      });
-    }
-
-    const token = bearerToken.split(" ")[1];
-    const decoded = jwt.verify(token, "zumitoDePiña");
-    const userId = decoded.userId;
-
-    const findAppointment = await appointment.findOne({
-      where: {
-        userId: userId,
-        date: req.body.date,
-      },
-
-      attributes: {
-        exclude: [
-          "userId",
-          "treatmentId",
-          "clinicId",
-          "updatedAt",
-          "createdAt",
-        ],
-      },
-
-      include: [
-        {
-          attributes: {
-            exclude: ["roleId", "password", "id", "updatedAt", "createdAt"],
-          },
-          model: user,
-        },
-        {
-          attributes: {
-            exclude: ["updatedAt", "createdAt"],
-          },
-          model: clinic,
-        },
-        {
-          attributes: {
-            exclude: ["updatedAt", "createdAt"],
-          },
-          model: treatment,
-        },
-      ],
-    });
-
-    return res.status(200).json({
-      success: true,
-      data: findAppointment,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: true,
-      message: "Get failed",
-      error: error.message,
-    });
-  }
-};
 
 appointmentController.findAllappointmentsByMedicId = async (req, res) => {
   try {
-    const bearerToken = req.headers.authorization;
+    
+    const buscaMedico = await medic.findOne({
 
-    if (!bearerToken) {
-      return res.status(401).json({
-        success: false,
-        message: "Access denied. Token is missing.",
-      });
-    }
-
-    const token = bearerToken.split(" ")[1];
-    const decoded = jwt.verify(token, "zumitoDePiña");
-    const medicId = decoded.medicId;
+      where: {
+        userId: req.userId,
+      }
+      
+    });
 
     const buscaCitas = await appointment.findAll({
       where: {
-        medicId: medicId,
+        medicId: buscaMedico.id
       },
-
       attributes: {
         exclude: [
           "userId",
@@ -318,7 +248,6 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
           "createdAt",
         ],
       },
-
       include: [
         {
           attributes: {
@@ -339,7 +268,7 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
           model: treatment,
         },
       ],
-    });
+    })
 
     return res.status(200).json({
       success: true,
