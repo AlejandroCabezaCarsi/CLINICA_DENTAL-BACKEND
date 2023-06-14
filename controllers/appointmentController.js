@@ -16,8 +16,15 @@ appointmentController.createappointment = async (req, res) => {
       })
     }
 
-    console.log(medicSelected);
+    const userMedicSelected = medicSelected.userId
 
+    const checkIfMedicIsActive = await user.findByPk(userMedicSelected)
+
+    if (checkIfMedicIsActive.isActive === false){
+      return res.status(400).json({
+        message: "Medic not found"
+      })
+    }
 
     const treatmentSelected = await treatment.findByPk(treatmentId); 
 
