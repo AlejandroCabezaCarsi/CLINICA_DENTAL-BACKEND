@@ -64,20 +64,38 @@ medicController.createMedic = async (req, res) => {
 
 medicController.deleteMedic = async (req, res) => {
   try {
-    const results = await medic.destroy({
+    const {collegiateNumber,userId} = req.body;
+
+    console.log(userId)
+
+    const deleteMedic = await medic.destroy({
       where: {
-        collegiateNumber: req.body.collegiateNumber,
+        collegiateNumber: collegiateNumber ,
       },
     });
+
+    const changeRole = await user.update(
+      {
+        roleId: 4,
+      },
+      {
+        where: {
+          id: userId
+        }
+      }
+      
+    ) 
+
     return res.status(200).json({
       success: true,
       message: "Medic deleted correctly",
-      results,
+      data: deleteMedic,
+      data: changeRole
     });
   } catch (error) {
     return res.status(500).json({
       success: true,
-      message: "can't cancel medic",
+      message: "Can't cancel medic",
       error: error.message,
     });
   }
