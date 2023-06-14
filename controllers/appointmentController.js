@@ -242,7 +242,6 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
       attributes: {
         exclude: [
           "userId",
-          "treatmentId",
           "clinicId",
           "updatedAt",
           "createdAt",
