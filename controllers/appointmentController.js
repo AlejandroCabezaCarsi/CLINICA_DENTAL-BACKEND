@@ -5,45 +5,44 @@ const appointmentController = {};
 
 appointmentController.createappointment = async (req, res) => {
   try {
-    const {medicId, treatmentId, clinicId, date, comments } = req.body;
+    const { medicId, treatmentId, clinicId, date, comments } = req.body;
 
-    const medicSelected = await medic.findByPk(medicId)
+    const medicSelected = await medic.findByPk(medicId);
 
-    if(!medicSelected){
+    if (!medicSelected) {
       return res.status(400).json({
         success: true,
-        message: "Medic not found"
-      })
+        message: "Medic not found",
+      });
     }
 
-    const userMedicSelected = medicSelected.userId
+    const userMedicSelected = medicSelected.userId;
 
-    const checkIfMedicIsActive = await user.findByPk(userMedicSelected)
+    const checkIfMedicIsActive = await user.findByPk(userMedicSelected);
 
-    if (checkIfMedicIsActive.isActive === false){
+    if (checkIfMedicIsActive.isActive === false) {
       return res.status(400).json({
-        message: "Medic not found"
-      })
+        message: "Medic not found",
+      });
     }
 
     const treatmentSelected = await treatment.findByPk(treatmentId);
 
-    if(!treatmentSelected){
+    if (!treatmentSelected) {
       return res.status(400).json({
         success: true,
-        message: "treatment not found"
-      })
+        message: "treatment not found",
+      });
     }
 
     const clinicSelected = await clinic.findByPk(clinicId);
 
-    if(!clinicSelected){
+    if (!clinicSelected) {
       return res.status(400).json({
         success: true,
-        message: "Clinic not found"
-      })
+        message: "Clinic not found",
+      });
     }
-
 
     const createAppointment = await appointment.create({
       userId: req.userId,
@@ -127,12 +126,7 @@ appointmentController.findAllappointments = async (req, res) => {
   try {
     const buscaCitas = await appointment.findAll({
       attributes: {
-        exclude: [
-          "userId",
-          "clinicId",
-          "updatedAt",
-          "createdAt",
-        ],
+        exclude: ["userId", "clinicId", "updatedAt", "createdAt"],
       },
       include: [
         {
@@ -152,7 +146,6 @@ appointmentController.findAllappointments = async (req, res) => {
           attributes: {
             exclude: ["updatedAt", "createdAt"],
           },
-
         },
       ],
     });
@@ -172,7 +165,6 @@ appointmentController.findAllappointments = async (req, res) => {
 
 appointmentController.findAllappointmentsByUserId = async (req, res) => {
   try {
-
     const buscaCitas = await appointment.findAll({
       where: {
         userId: req.userId,
@@ -209,11 +201,11 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
       ],
     });
 
-    if (buscaCitas.length === 0){
+    if (buscaCitas.length === 0) {
       return res.status(200).json({
         succes: true,
-        message: "You don't have any appointment"
-      })
+        message: "You don't have any appointment",
+      });
     }
 
     return res.status(200).json({
@@ -229,29 +221,20 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
   }
 };
 
-
 appointmentController.findAllappointmentsByMedicId = async (req, res) => {
   try {
-
     const buscaMedico = await medic.findOne({
-
       where: {
         userId: req.userId,
-      }
-
+      },
     });
 
     const buscaCitas = await appointment.findAll({
       where: {
-        medicId: buscaMedico.id
+        medicId: buscaMedico.id,
       },
       attributes: {
-        exclude: [
-          "userId",
-          "clinicId",
-          "updatedAt",
-          "createdAt",
-        ],
+        exclude: ["userId", "clinicId", "updatedAt", "createdAt"],
       },
       include: [
         {
@@ -273,7 +256,7 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
           model: treatment,
         },
       ],
-    })
+    });
 
     return res.status(200).json({
       success: true,

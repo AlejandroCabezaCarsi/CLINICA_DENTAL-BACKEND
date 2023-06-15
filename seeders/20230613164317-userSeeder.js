@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    const bcrypt = require('bcrypt')
+    const bcrypt = require("bcrypt");
 
     return queryInterface.bulkInsert("users", [
       {
@@ -24,7 +24,7 @@ module.exports = {
         dni: "123456789A",
         phoneNumber: 111111111,
         roleId: 1,
-        isActive:true,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -37,12 +37,12 @@ module.exports = {
         dni: "987654321B",
         phoneNumber: 222222222,
         roleId: 2,
-        isActive:true,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id:3,
+        id: 3,
         name: "medic",
         lastname: "medic",
         email: "medic@medic.com",
@@ -50,12 +50,12 @@ module.exports = {
         dni: "67891234C",
         phoneNumber: 333333333,
         roleId: 3,
-        isActive:true,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id:4,
+        id: 4,
         name: "patient",
         lastname: "patient",
         email: "patient@patient.com",
@@ -63,21 +63,19 @@ module.exports = {
         dni: "67891234D",
         phoneNumber: 444444,
         roleId: 4,
-        isActive:true,
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
     ]);
   },
 
-
-
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+  },
 };

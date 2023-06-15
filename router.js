@@ -7,11 +7,34 @@ const clinicRouter = require("./views/clinicRouter");
 const medicRouter = require("./views/medicRouter");
 const appointmentRouter = require("./views/appointmentRouter");
 
-router.use("/roles", rolesRouter);
-router.use("/user", userRouter);
-router.use("/treatment", treatmentRouter);
-router.use("/clinic", clinicRouter);
-router.use("/appointment", appointmentRouter);
-router.use("/medic", medicRouter);
+router.use(
+    "/roles", 
+    rolesRouter
+);
+
+router.use(
+    "/user", 
+    userRouter
+);
+
+router.use(
+    "/treatment", 
+    treatmentRouter
+);
+
+router.use(
+    "/clinic", 
+    clinicRouter
+);
+
+router.use(
+    "/appointment", 
+    appointmentRouter
+);
+
+router.use(
+    "/medic", 
+    medicRouter
+);
 
 module.exports = router;

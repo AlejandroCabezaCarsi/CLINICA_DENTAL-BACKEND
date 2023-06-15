@@ -7,51 +7,45 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 medicController.createMedic = async (req, res) => {
-  
-  const {userId, speciality, collegiateNumber} = req.body
+  const { userId, speciality, collegiateNumber } = req.body;
 
   try {
-
     const findMedic = await medic.findOne({
       where: {
-        userId:userId
-      }
-    })
+        userId: userId,
+      },
+    });
 
-    if (findMedic){
+    if (findMedic) {
       return res.status(400).json({
-        success:true,
-        message: "A dentist with that userId already exists"
-      })
+        success: true,
+        message: "A dentist with that userId already exists",
+      });
     }
-   
-    const newMedic = await medic.create({
 
+    const newMedic = await medic.create({
       userId: userId,
       speciality: speciality,
-      collegiateNumber: collegiateNumber
-
+      collegiateNumber: collegiateNumber,
     });
 
     const newRole = await user.update(
       {
-      roleId: 3,
+        roleId: 3,
       },
       {
         where: {
-                id: userId
-              }
+          id: userId,
+        },
       }
-    )
+    );
 
     return res.json({
       success: true,
       message: "Medic created and role updated",
       data: newMedic,
-      data: newRole
-
+      data: newRole,
     });
-
   } catch (error) {
     return res.status(500).json({
       success: true,
@@ -61,16 +55,15 @@ medicController.createMedic = async (req, res) => {
   }
 };
 
-
 medicController.deleteMedic = async (req, res) => {
   try {
-    const {collegiateNumber,userId} = req.body;
+    const { collegiateNumber, userId } = req.body;
 
-    console.log(userId)
+    console.log(userId);
 
     const deleteMedic = await medic.destroy({
       where: {
-        collegiateNumber: collegiateNumber ,
+        collegiateNumber: collegiateNumber,
       },
     });
 
@@ -80,17 +73,16 @@ medicController.deleteMedic = async (req, res) => {
       },
       {
         where: {
-          id: userId
-        }
+          id: userId,
+        },
       }
-      
-    ) 
+    );
 
     return res.status(200).json({
       success: true,
       message: "Medic deleted correctly",
       data: deleteMedic,
-      data: changeRole
+      data: changeRole,
     });
   } catch (error) {
     return res.status(500).json({
@@ -103,7 +95,7 @@ medicController.deleteMedic = async (req, res) => {
 
 medicController.updateMedic = async (req, res) => {
   try {
-    const {collegiateNumber,speciality} = req.body;
+    const { collegiateNumber, speciality } = req.body;
 
     const results = await medic.update(
       {
@@ -132,18 +124,25 @@ medicController.updateMedic = async (req, res) => {
 
 medicController.getMedic = async (req, res) => {
   try {
-
     const name = req.body.name;
     const lastname = req.body.lastname;
 
     const buscaMedico = await user.findOne({
       where: {
-        name:name,
-        lastname:lastname,
+        name: name,
+        lastname: lastname,
         roleId: 3,
       },
       attributes: {
-        exclude: ["password", "updatedAt", "createdAt", "roleId", "isActive", "phoneNumber","dni"],
+        exclude: [
+          "password",
+          "updatedAt",
+          "createdAt",
+          "roleId",
+          "isActive",
+          "phoneNumber",
+          "dni",
+        ],
       },
 
       include: [
@@ -172,13 +171,20 @@ medicController.getMedic = async (req, res) => {
 medicController.getAllMedicsByUsers = async (req, res) => {
   try {
     const buscaMedicos = await user.findAll({
-
       where: {
-        roleId:3
+        roleId: 3,
       },
 
       attributes: {
-        exclude: ["password", "updatedAt", "createdAt", "roleId", "isActive", "phoneNumber","dni"],
+        exclude: [
+          "password",
+          "updatedAt",
+          "createdAt",
+          "roleId",
+          "isActive",
+          "phoneNumber",
+          "dni",
+        ],
       },
 
       include: [
@@ -207,9 +213,8 @@ medicController.getAllMedicsByUsers = async (req, res) => {
 medicController.SAOAgetAllMedics = async (req, res) => {
   try {
     const buscaMedicos = await user.findAll({
-
       where: {
-        roleId:3
+        roleId: 3,
       },
 
       attributes: {

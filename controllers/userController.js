@@ -173,7 +173,6 @@ userController.isActiveFalse = async (req, res) => {
 
 userController.updateUser = async (req, res) => {
   try {
-    
     const { name, lastname, email, password, phoneNumber } = req.body;
 
     const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
