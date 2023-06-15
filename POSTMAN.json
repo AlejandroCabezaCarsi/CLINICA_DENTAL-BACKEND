@@ -1,0 +1,918 @@
+{
+	"info": {
+		"_postman_id": "7b6d9bf9-3c12-40d1-80fb-0e1ebd6481cd",
+		"name": "Clínica Dental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27865594"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "USER GET ALL",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROFILE USER",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"getUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInJvbGVJZCI6NCwiZW1haWwiOiJwYXRpZW50QHBhdGllbnQuY29tIiwiaWF0IjoxNjg2ODEzNTE3LCJleHAiOjE2ODY4NDIzMTd9.ndmT_VYv7Os5O6OXWisZ_M6mY_Z7B4DZMWPStTBDt5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"name\": \"ALEX\",\r\n            \"lastname\": \"ALEX\",\r\n            \"email\": \"asasddf@ads.cdo\",\r\n            \"password\": \"1234\",\r\n            \"phoneNumber\": 666777888\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER ISACTIVE: FALSE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJyb2xlSWQiOjQsImVtYWlsIjoiQU5EUkVBQEFORFJFQTMuY29tIiwiaWF0IjoxNjg2Njk0ODkzLCJleHAiOjE2ODY3MjM2OTN9.JiqDd3gY5V1XKHsN7hla8_Zp_6W5V5Z7EWIx3RZVMEQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER DELETE BY ADMIN OR SUPER ADMIN",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Javi\",\r\n    \"password\": \"$2b$08$iOETZ.R.nv5x2o8HYErGfu23naL5dboM8RPXKnkQAzY5xOrqN4qVO\",\r\n    \"dni\": \"654321987D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ANDREA\",\r\n    \"lastname\": \"ANDREA\",\r\n    \"email\": \"ANDREA@ANDREA2.com\",\r\n    \"password\": \"1234\",\r\n    \"phoneNumber\": 666666668,\r\n    \"dni\": \"afasdfsgH6\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"alex@alex.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TREATMENT",
+			"item": [
+				{
+					"name": "TREATMENT FIND ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/treatment/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"treatment",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TREATMENT FIND ONE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/treatment/findOne",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"treatment",
+								"findOne"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TREATMENT UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"PRUEBA UPDATE\",\r\n    \"price\": 9999,\r\n    \"duration\": \"PRUEBA UPDATE\",\r\n    \"id\": 8 //Aqui pasar el ID del tratamiento que quieres cambiar\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/treatment/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"treatment",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TREATMENT DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODYyNTAzNjcsImV4cCI6MTY4NjI3OTE2N30.bIMGodUx_GYvrs54rV0BYeAcT-4yMyG6NppoIySEsro",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/treatment/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"treatment",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TREATMENT CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n                \"name\": \"PRUEBA\",\r\n                \"price\": 1234,\r\n                \"duration\" : \"PRUEBA\"\r\n            }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/treatment/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"treatment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLINIC",
+			"item": [
+				{
+					"name": "CLINIC FIND ALL",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clinic/findAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clinic",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLINIC UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"PRUEBA UPDATE\", \r\n    \"number\": 0,\r\n    \"email\": \"PRUEBA UPDATE\", \r\n    \"city\": \"PRUEBA UPDATE\",\r\n    \"id\":4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clinic/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clinic",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLINIC DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clinic/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clinic",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLINIC CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"Calle noseque, 21,5, 12345\", \r\n    \"number\": 555555555, \r\n    \"email\": \"clinicabarcelona@clinicabarcelona.com\", \r\n    \"city\": \"Barcelona\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clinic/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clinic",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "APPOINTMENT",
+			"item": [
+				{
+					"name": "APPOINTMENTS GET ALL BY MEDIC ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/appoinment/getAllAppoinmentsByMedicId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appoinment",
+								"getAllAppoinmentsByMedicId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPOINTMENT GET ALL BY USER ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInJvbGVJZCI6MiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2ODY3NjMzNzAsImV4cCI6MTY4Njc5MjE3MH0.Gt3koQAGi7z26fJkzcFD3uZ1fvXxJbjNDiVcHSg03J8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/appointment/getAllappointmentsByUserId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appointment",
+								"getAllappointmentsByUserId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPOINMENTS GET ALL",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2Nzg0MzEwLCJleHAiOjE2ODY4MTMxMTB9.hSOnUONCAgvLzNNpHdeutu1iOir8StmttuQi52CaR9I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/appointment/getAllAppointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appointment",
+								"getAllAppointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPOINMENT UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"treatmentId\":5,\r\n    \"userId\": 2,\r\n    \"id\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/appoinment/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appoinment",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPOINMENT DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/appoinment/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appoinment",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APPOINMENT CREATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2NzU4Mzk0LCJleHAiOjE2ODY3ODcxOTR9.T255tuebuZnOSFGS86jwDMUCDViCBezIJv5wUy3F1vQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"medicId\": 8,\r\n    \"treatmentId\": 1,\r\n    \"clinicId\": 1,\r\n    \"date\": \"10 de enero de 2025\",\r\n    \"comments\": \"Hay que hacer ayuno \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/appointment/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"appointment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MEDIC",
+			"item": [
+				{
+					"name": "MEDIC GET ONE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2NzU3NDEyLCJleHAiOjE2ODY3ODYyMTJ9.nR3DvgxHm5RTOm0rFBT4h7kFW6UFZq995K1_l8cxHAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"JUAN\",\r\n    \"lastname\": \"JUAN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/medic/getOneMedic",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"getOneMedic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL MEDICS BY USERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2NzU4Mzk0LCJleHAiOjE2ODY3ODcxOTR9.T255tuebuZnOSFGS86jwDMUCDViCBezIJv5wUy3F1vQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/medic/getAllMedics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"getAllMedics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SAOA GET ALL MEDICS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2NzU4Mzk0LCJleHAiOjE2ODY3ODcxOTR9.T255tuebuZnOSFGS86jwDMUCDViCBezIJv5wUy3F1vQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/medic/SAOAgetAllMedics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"SAOAgetAllMedics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MEDIC UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"BBBB\",\r\n    \"lastname\": \"BBBB\",\r\n    \"email\": \"BBBB\",\r\n    \"password\": \"1234\",\r\n    \"phoneNumber\": 564654564,\r\n    \"speciality\": \"BBBBB\",\r\n    \"collegiateNumber\":\"aaaaa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/medic/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MEDIC DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2Njk4NzU0LCJleHAiOjE2ODY3Mjc1NTR9.QpOogsRevw58U7RvNYpJmc80UxDSItd0Z0LrFG9ofls",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"collegiateNumber\": \"1234AAA\",\r\n    \"userId\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/medic/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MEDIC CREATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVJZCI6MSwiZW1haWwiOiJzdXBlckFkbWluQHN1cGVyQWRtaW4uY29tIiwiaWF0IjoxNjg2Njk4NzU0LCJleHAiOjE2ODY3Mjc1NTR9.QpOogsRevw58U7RvNYpJmc80UxDSItd0Z0LrFG9ofls",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":10,\r\n    \"speciality\": \"Ortodoncista\",\r\n    \"collegiateNumber\": \"1234AAA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/medic/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"medic",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
