@@ -6,12 +6,10 @@ const jwt = require("jsonwebtoken");
 
 const userController = {};
 
-
 //---CREATE USERS---//
 
 userController.createUser = async (req, res) => {
-
-  const {name, lastname, email, dni, phoneNumber } = req.body
+  const { name, lastname, email, dni, phoneNumber } = req.body;
 
   const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -37,17 +35,15 @@ userController.createUser = async (req, res) => {
       dni: dni,
       phoneNumber: phoneNumber,
       roleId: 4,
-      isActive: true
+      isActive: true,
     });
 
     return res.status(200).json({
       success: true,
       message: "User created",
-      data: newUser
+      data: newUser,
     });
-
   } catch (error) {
-
     return res.status(500).json({
       success: true,
       message: "Create user went wrong",
@@ -56,12 +52,10 @@ userController.createUser = async (req, res) => {
   }
 };
 
-
 //--- LOGIN USERS ---//
 
 userController.loginUser = async (req, res) => {
   try {
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -71,10 +65,11 @@ userController.loginUser = async (req, res) => {
       },
     });
 
-    if(buscaUsuario.isActive === false){
+    if (buscaUsuario.isActive === false) {
       return res.status(500).json({
-        message: "You cancelled your account. If you want to reactivate your account send an email with your DNI and Email"
-      })
+        message:
+          "You cancelled your account. If you want to reactivate your account send an email with your DNI and Email",
+      });
     }
 
     if (!buscaUsuario) {
@@ -122,9 +117,7 @@ userController.loginUser = async (req, res) => {
 //--- DELETE USER BY SUPERADMIN OR ADMIN ---//
 
 userController.SAOAdeleteUser = async (req, res) => {
-
   try {
-
     const results = await user.destroy({
       where: {
         name: req.body.name,
@@ -134,10 +127,9 @@ userController.SAOAdeleteUser = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "User deleted correctly",
-      results: results
+      results: results,
     });
   } catch (error) {
-
     return res.status(500).json({
       success: true,
       message: "can't cancel user",
@@ -145,37 +137,32 @@ userController.SAOAdeleteUser = async (req, res) => {
     });
   }
 };
-
 
 //--- USER TO SET FALSE IN ISACTIVE ATTRIBUTE ---//
 
 userController.isActiveFalse = async (req, res) => {
-
   try {
+    const userId = req.userId;
 
-    const userId = req.userId
-
-    console.log(userId)
+    console.log(userId);
 
     const results = await user.update(
       {
-        isActive: false
+        isActive: false,
       },
       {
         where: {
-
-          id: userId
-        }
+          id: userId,
+        },
       }
     );
-    
+
     return res.status(200).json({
       success: true,
       message: "User deleted correctly",
-      results: results
+      results: results,
     });
   } catch (error) {
-
     return res.status(500).json({
       success: true,
       message: "can't cancel user",
@@ -184,22 +171,20 @@ userController.isActiveFalse = async (req, res) => {
   }
 };
 
-
 userController.updateUser = async (req, res) => {
   try {
-    const { name, lastname, email, password, phonenumber } = req.body;
+    
+    const { name, lastname, email, password, phoneNumber } = req.body;
 
     const compruebaEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  if (!compruebaEmail.test(req.body.email)) {
-    return res.status(400).json({
-      success: false,
-      message: "Email not valid",
-    });
-  }
+    if (!compruebaEmail.test(req.body.email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Email not valid",
+      });
+    }
 
-
-    
     if (password.length < 4) {
       return res.send("Password must be longer than 4 characters");
     }
@@ -212,7 +197,7 @@ userController.updateUser = async (req, res) => {
         lastname: lastname,
         email: email,
         password: newPassword,
-        phonenumber: phonenumber,
+        phoneNumber: phoneNumber,
       },
       {
         where: {
@@ -257,7 +242,7 @@ userController.getUser = async (req, res) => {
     return res.json({
       success: true,
       message: "This is your profile",
-      data: buscaUsuario
+      data: buscaUsuario,
     });
   } catch (error) {
     return res.status(500).json({

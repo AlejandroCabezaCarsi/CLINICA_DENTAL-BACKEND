@@ -26,7 +26,7 @@ appointmentController.createappointment = async (req, res) => {
       })
     }
 
-    const treatmentSelected = await treatment.findByPk(treatmentId); 
+    const treatmentSelected = await treatment.findByPk(treatmentId);
 
     if(!treatmentSelected){
       return res.status(400).json({
@@ -35,7 +35,7 @@ appointmentController.createappointment = async (req, res) => {
       })
     }
 
-    const clinicSelected = await clinic.findByPk(clinicId); 
+    const clinicSelected = await clinic.findByPk(clinicId);
 
     if(!clinicSelected){
       return res.status(400).json({
@@ -129,17 +129,15 @@ appointmentController.findAllappointments = async (req, res) => {
       attributes: {
         exclude: [
           "userId",
-          "treatmentId",
           "clinicId",
           "updatedAt",
           "createdAt",
         ],
       },
-
       include: [
         {
           attributes: {
-            exclude: ["roleId", "password", "id", "updatedAt", "createdAt"],
+            exclude: ["roleId", "password", "updatedAt", "createdAt"],
           },
           model: user,
         },
@@ -150,10 +148,11 @@ appointmentController.findAllappointments = async (req, res) => {
           model: clinic,
         },
         {
+          model: treatment,
           attributes: {
             exclude: ["updatedAt", "createdAt"],
           },
-          model: treatment,
+
         },
       ],
     });
@@ -233,13 +232,13 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
 
 appointmentController.findAllappointmentsByMedicId = async (req, res) => {
   try {
-    
+
     const buscaMedico = await medic.findOne({
 
       where: {
         userId: req.userId,
       }
-      
+
     });
 
     const buscaCitas = await appointment.findAll({

@@ -6,7 +6,7 @@ const isSuperAdmin = (req, res, next) => {
 
     if (!bearerToken) {
       return res.status(401).json({
-        success: false,
+        success: true,
         message: "Access denied. Token is missing.",
       });
     }
@@ -17,7 +17,7 @@ const isSuperAdmin = (req, res, next) => {
 
     if (roleId !== 1) {
       return res.status(403).json({
-        success: false,
+        success: true,
         message: "Access denied. You don't have the required permissions.",
       });
     }
