@@ -22,7 +22,7 @@ La estructura relacional de mi proyecto consiste en 6 tablas:
 
 Este es el esquema de relación entre las tablas: 
 
-![Esquema Tablas](./img\schema.png)
+![Esquema Tablas](./img/schema.png)
 
 ##2. Tecnologías utilizadas
 
