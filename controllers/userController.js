@@ -93,6 +93,7 @@ userController.loginUser = async (req, res) => {
         userId: buscaUsuario.id,
         roleId: buscaUsuario.roleId,
         email: buscaUsuario.email,
+        name: buscaUsuario.name
       },
       "zumitoDePiña",
       {
