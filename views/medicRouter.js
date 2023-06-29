@@ -43,4 +43,10 @@ router.get(
   medicController.SAOAgetAllMedics
 );
 
+router.get(
+    "/getMedicByUserId",
+    auth,
+    medicController.getMedicByUserId
+)
+
 module.exports = router;

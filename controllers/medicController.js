@@ -168,6 +168,63 @@ medicController.getMedic = async (req, res) => {
   }
 };
 
+medicController.getMedicByUserId = async (req, res) => {
+  try {
+    const id = req.body.id;
+
+    const buscaMedico = await medic.findOne({
+      where: {
+        id: id
+      },
+      attributes: {
+        attributes: {
+          exclude: ["updatedAt", "createdAt"],
+        },
+      },
+    });
+
+    if (!buscaMedico) {
+      return res.status(404).json({
+        success: false,
+        message: "Medic not found",
+      });
+    }
+
+    const userId = buscaMedico.userId;
+
+    const buscaUsuario = await user.findOne({
+      where: {
+        id: userId
+      },
+      attributes:  ["name","lastname","email"],
+    });
+
+    if (!buscaUsuario) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    buscaMedico.dataValues.user = buscaUsuario;
+
+    return res.status(200).json({
+      success: true,
+      message: "Medic retrieved",
+      data: buscaMedico,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Get failed",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = medicController;
+
+
 medicController.getAllMedicsByUsers = async (req, res) => {
   try {
     const buscaMedicos = await user.findAll({
