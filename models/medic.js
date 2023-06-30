@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       models.medic.hasMany(models.appointment, {
         foreignKey: "medicId",
       });
+
+      models.medic.belongsTo(models.user,{
+        foreignKey: "userId"
+      })
     }
   }
   medic.init(

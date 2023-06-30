@@ -198,8 +198,49 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
           },
           model: treatment,
         },
+        {
+            model: medic,
+            attributes: {
+                exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+            include: {
+                model: user,
+                attributes: {
+                    exclude: ["password", "role_id", "createdAt","updatedAt",  "address"]
+                }
+            }
+        
+            
+        },
+
+        
       ],
+      
     });
+
+    // buscaCitas.forEach((cita) => {
+    //   const userId = cita.medic.userId;
+    //   console.log(userId); // Imprime el userId del médico en cada iteración
+    // });
+
+    const buscaNombreMedico = await Promise.all(
+      buscaCitas.map(async (cita) => {
+        const medico = await user.findByPk(cita.medic.userId);
+        return medico ? medico.name : null;
+      })
+    );
+
+    console.log(buscaNombreMedico)
+    
+
+
+    // console.log(buscaCitas.data.medic.userId)
+
+    // const buscaNombreMedico = await user.findByPk({
+    //   where: {
+    //     userId: buscaCitas.data.medic.userId
+    //   }
+    // })
 
     if (buscaCitas.length === 0) {
       return res.status(200).json({
@@ -211,6 +252,7 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: buscaCitas,
+      buscaNombreMedico: buscaNombreMedico
     });
   } catch (error) {
     return res.status(500).json({

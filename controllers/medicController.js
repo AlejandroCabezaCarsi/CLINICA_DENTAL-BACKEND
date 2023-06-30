@@ -222,8 +222,6 @@ medicController.getMedicByUserId = async (req, res) => {
   }
 };
 
-module.exports = medicController;
-
 
 medicController.getAllMedicsByUsers = async (req, res) => {
   try {
