@@ -47,8 +47,12 @@ module.exports = {
         required: true,
       },
       date: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATEONLY,
         required: true
+      },
+      time: {
+        type: Sequelize.TIME,
+        required:true
       },
       comments: {
         type: Sequelize.STRING

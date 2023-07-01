@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       treatmentId: DataTypes.INTEGER,
       clinicId: DataTypes.INTEGER,
       price: DataTypes.INTEGER,
-      date: DataTypes.STRING,
+      date: DataTypes.DATEONLY,
+      time: DataTypes.TIME,
       comments: DataTypes.STRING,
     },
     {

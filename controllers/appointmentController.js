@@ -5,7 +5,7 @@ const appointmentController = {};
 
 appointmentController.createappointment = async (req, res) => {
   try {
-    const { medicId, treatmentId, clinicId, date, comments } = req.body;
+    const { medicId, treatmentId, clinicId, date, time, comments } = req.body;
 
     const medicSelected = await medic.findByPk(medicId);
 
@@ -44,6 +44,49 @@ appointmentController.createappointment = async (req, res) => {
       });
     }
 
+    if (new Date(date) <= new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: "You cannot make an appointment with a date before today"
+      });
+    }
+    
+    const checkDateTimeUser = await appointment.findOne({
+      where: {
+        userId: req.userId,
+        date: date,
+        time: time
+      }
+    })
+
+    if(checkDateTimeUser) {
+      return res.status(400).json({
+        success: false,
+        message: "The appointment cannot be scheduled because you already have an appointment on the same day at the same time. "
+      })
+    }
+
+    const checkDateTimeMedic = await appointment.findOne({
+      where: {
+        medicId: medicId,
+        date: date,
+        time: time
+      }
+    })
+
+    if (checkDateTimeMedic) {
+      return res.status(400).json({
+        success: false,
+        message: "The appointment cannot be scheduled because it conflicts with an existing appointment"
+      });
+    }
+
+    
+
+
+
+
+
     const createAppointment = await appointment.create({
       userId: req.userId,
       medicId: medicSelected.id,
@@ -51,6 +94,7 @@ appointmentController.createappointment = async (req, res) => {
       clinicId: clinicSelected.id,
       price: treatmentSelected.price,
       date,
+      time,
       comments,
       createdAt: new Date(),
       updatedAt: new Date(),
