@@ -50,7 +50,7 @@ appointmentController.createappointment = async (req, res) => {
         message: "You cannot make an appointment with a date before today"
       });
     }
-    
+
     const checkDateTimeUser = await appointment.findOne({
       where: {
         userId: req.userId,
@@ -139,15 +139,15 @@ appointmentController.updateappointment = async (req, res) => {
   try {
     const results = await appointment.update(
       {
-        treatmentId: req.body.treatmentId,
-        clinicId: req.body.clinicId,
+        
         date: req.body.date,
+        time: req.body.time,
         comments: req.body.comments,
       },
       {
         where: {
-          userId: req.body.userId,
-          id: req.body.userId,
+          userId: req.userId,
+          id: req.body.id,
         },
       }
     );

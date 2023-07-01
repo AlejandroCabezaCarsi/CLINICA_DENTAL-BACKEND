@@ -34,7 +34,6 @@ router.get(
 router.get(
   "/findAll",
   auth,
-  isSuperAdmin,
   treatmentController.getAllTreatments
 );
 

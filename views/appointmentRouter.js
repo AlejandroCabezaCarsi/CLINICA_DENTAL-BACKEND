@@ -19,7 +19,6 @@ router.delete(
 router.put(
   "/update",
   auth,
-  checkAdminOrSuperAdmin,
   appointmentController.updateappointment
 );
 router.get(
