@@ -39,4 +39,10 @@ router.get(
   appointmentController.findAllappointmentsByMedicId
 );
 
+router.post(
+  "/getAppointmentsByDate", 
+  auth,
+  appointmentController.findAppointmentsByDate
+)
+
 module.exports = router;
