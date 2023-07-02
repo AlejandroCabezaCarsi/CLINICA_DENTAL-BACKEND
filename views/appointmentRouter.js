@@ -35,7 +35,6 @@ router.get(
 router.get(
   "/getAllappointmentsByMedicId",
   auth,
-  checkIsMedicOrAdminOrSuperAdmin,
   appointmentController.findAllappointmentsByMedicId
 );
 

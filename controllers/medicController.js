@@ -170,11 +170,11 @@ medicController.getMedic = async (req, res) => {
 
 medicController.getMedicByUserId = async (req, res) => {
   try {
-    const id = req.body.id;
+    const userId = req.body.userId;
 
     const buscaMedico = await medic.findOne({
       where: {
-        id: id
+        userId: userId
       },
       attributes: {
         attributes: {
@@ -190,23 +190,7 @@ medicController.getMedicByUserId = async (req, res) => {
       });
     }
 
-    const userId = buscaMedico.userId;
-
-    const buscaUsuario = await user.findOne({
-      where: {
-        id: userId
-      },
-      attributes:  ["name","lastname","email"],
-    });
-
-    if (!buscaUsuario) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    buscaMedico.dataValues.user = buscaUsuario;
+    
 
     return res.status(200).json({
       success: true,

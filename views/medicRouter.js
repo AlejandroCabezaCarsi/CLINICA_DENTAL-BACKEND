@@ -43,7 +43,7 @@ router.get(
   medicController.SAOAgetAllMedics
 );
 
-router.get(
+router.post(
     "/getMedicByUserId",
     auth,
     medicController.getMedicByUserId

@@ -262,30 +262,6 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
       
     });
 
-    // buscaCitas.forEach((cita) => {
-    //   const userId = cita.medic.userId;
-    //   console.log(userId); // Imprime el userId del médico en cada iteración
-    // });
-
-    const buscaNombreMedico = await Promise.all(
-      buscaCitas.map(async (cita) => {
-        const medico = await user.findByPk(cita.medic.userId);
-        return medico ? medico.name : null;
-      })
-    );
-
-    console.log(buscaNombreMedico)
-    
-
-
-    // console.log(buscaCitas.data.medic.userId)
-
-    // const buscaNombreMedico = await user.findByPk({
-    //   where: {
-    //     userId: buscaCitas.data.medic.userId
-    //   }
-    // })
-
     if (buscaCitas.length === 0) {
       return res.status(200).json({
         succes: true,
@@ -296,7 +272,6 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: buscaCitas,
-      buscaNombreMedico: buscaNombreMedico
     });
   } catch (error) {
     return res.status(500).json({
@@ -309,6 +284,7 @@ appointmentController.findAllappointmentsByUserId = async (req, res) => {
 
 appointmentController.findAllappointmentsByMedicId = async (req, res) => {
   try {
+
     const buscaMedico = await medic.findOne({
       where: {
         userId: req.userId,
@@ -359,11 +335,20 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
 
 
 appointmentController.findAppointmentsByDate = async (req, res) => {
+
+
   try {
-    const buscaCitas = await appointment.findAll({
+
+    const buscaMedico = await medic.findOne({
       where: {
         userId: req.userId,
+      },
+    });
+
+    const buscaCitas = await appointment.findAll({
+      where: {
         date: req.body.date,
+        medicId: buscaMedico.id
       },
       include: [
         {
@@ -399,6 +384,9 @@ appointmentController.findAppointmentsByDate = async (req, res) => {
       ],
     });
 
+
+  
+
     if (!buscaCitas || buscaCitas.length === 0) {
       return res.status(200).json({
         success: true,
@@ -406,6 +394,8 @@ appointmentController.findAppointmentsByDate = async (req, res) => {
         message: `No tienes ninguna cita el dia ${req.body.date}`,
       });
     }
+
+    console.log(buscaCitas)
 
     return res.status(200).json({
       success: true,
