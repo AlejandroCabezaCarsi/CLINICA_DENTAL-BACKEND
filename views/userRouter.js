@@ -38,7 +38,7 @@ router.get(
     auth, userController.getUser);
 router.get(
     "/getAllUsers", 
-    auth, isSuperAdmin, 
+    auth, checkAdminOrSuperAdmin, 
     userController.getAllUsers);
 
 module.exports = router;

@@ -336,6 +336,7 @@ appointmentController.findAllappointmentsByMedicId = async (req, res) => {
 
 appointmentController.findAppointmentsByDate = async (req, res) => {
 
+  
 
   try {
 
@@ -348,7 +349,77 @@ appointmentController.findAppointmentsByDate = async (req, res) => {
     const buscaCitas = await appointment.findAll({
       where: {
         date: req.body.date,
-        medicId: buscaMedico.id
+        medicId: buscaMedico?.id
+      },
+      include: [
+        {
+          attributes: {
+            exclude: ["roleId", "password", "id", "updatedAt", "createdAt"],
+          },
+          model: user,
+        },
+        {
+          attributes: {
+            exclude: ["updatedAt", "createdAt"],
+          },
+          model: clinic,
+        },
+        {
+          attributes: {
+            exclude: ["updatedAt", "createdAt"],
+          },
+          model: treatment,
+        },
+        {
+          model: medic,
+          attributes: {
+            exclude: ["user_id", "createdAt", "updatedAt"],
+          },
+          include: {
+            model: user,
+            attributes: {
+              exclude: ["password", "role_id", "createdAt", "updatedAt", "address"],
+            },
+          },
+        },
+      ],
+    });
+
+
+  
+
+    if (!buscaCitas || buscaCitas.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data: buscaCitas,
+        message: `No tienes ninguna cita el dia ${req.body.date}`,
+      });
+    }
+
+    console.log(buscaCitas)
+
+    return res.status(200).json({
+      success: true,
+      data: buscaCitas,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Get failed",
+      error: error.message,
+    });
+  }
+};
+appointmentController.findAppointmentsByDateUser = async (req, res) => {
+
+
+  try {
+
+    const buscaCitas = await appointment.findAll({
+      where: {
+        userId: req.userId,
+        date: req.body.date,
+
       },
       include: [
         {

@@ -24,7 +24,7 @@ router.put(
 router.get(
   "/getAllAppointments",
   auth,
-  isSuperAdmin,
+  checkAdminOrSuperAdmin,
   appointmentController.findAllappointments
 );
 router.get(
@@ -42,6 +42,12 @@ router.post(
   "/getAppointmentsByDate", 
   auth,
   appointmentController.findAppointmentsByDate
+)
+
+router.post(
+  "/getAppointmentsByDateUser",
+  auth,
+  appointmentController.findAppointmentsByDateUser
 )
 
 module.exports = router;
